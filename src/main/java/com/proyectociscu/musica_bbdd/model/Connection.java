@@ -76,12 +76,6 @@ public class Connection {
             try {
                 context = JAXBContext.newInstance(Connection.class);
                 
-                /*
-                JAXBContext context = JAXBContext.newInstance(Books.class);
-                Unmarshaller um = context.createUnmarshaller();
-                myBooks = (Books) um.unmarshal(new File(path));
-                */
-
                 Unmarshaller um = context.createUnmarshaller();
                 um.unmarshal(f);
                 Connection miconextion = (Connection) um.unmarshal(f);
