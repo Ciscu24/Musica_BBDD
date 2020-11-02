@@ -10,51 +10,53 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ArtistaDAO extends Artista{
+public class ArtistaDAO extends Artista {
+
     private boolean persist;
 
     public ArtistaDAO() {
         super();
         persist = false;
     }
-    
-    public ArtistaDAO(int id, String nombre, String nacionalidad, String foto){
+
+    public ArtistaDAO(int id, String nombre, String nacionalidad, String foto) {
         super(id, nombre, nacionalidad, foto);
         persist = false;
     }
-    
-    public ArtistaDAO(String nombre, String nacionalidad, String foto){
+
+    public ArtistaDAO(String nombre, String nacionalidad, String foto) {
         super(-1, nombre, nacionalidad, foto);
         persist = false;
     }
-    
-    public ArtistaDAO(Artista a){
+
+    public ArtistaDAO(Artista a) {
         this.setId(a.getId());
         this.setNombre(a.getNombre());
         this.setNacionalidad(a.getNacionalidad());
         this.setFoto(a.getFoto());
     }
-    
-    public void persist(){
+
+    public void persist() {
         persist = true;
     }
-    
-    public void detatch(){
+
+    public void detatch() {
         persist = false;
     }
-    
+
     @Override
     public void setId(int id) {
         super.setId(id);
-        if(persist){
+        if (persist) {
+
             save();
         }
     }
-    
+
     @Override
     public void setNombre(String nombre) {
         super.setNombre(nombre);
-        if(persist){
+        if (persist) {
             save();
         }
     }
@@ -62,7 +64,7 @@ public class ArtistaDAO extends Artista{
     @Override
     public void setNacionalidad(String nacionalidad) {
         super.setNacionalidad(nacionalidad);
-        if(persist){
+        if (persist) {
             save();
         }
     }
@@ -70,18 +72,18 @@ public class ArtistaDAO extends Artista{
     @Override
     public void setFoto(String foto) {
         super.setFoto(foto);
-        if(persist){
+        if (persist) {
             save();
         }
     }
-    
-    public int save(){
+
+    public int save() {
         int result = -1;
-        
+
         try {
             java.sql.Connection csql = ConnectionUtil.getConnection();
-            
-            if(this.getId()>0){
+
+            if (this.getId() > 0) {
                 //UPDATE
                 String q = "UPDATE artista SET nombre = ?, nacionalidad = ?, foto = ? WHERE id = ?";
                 PreparedStatement ps = csql.prepareStatement(q);
@@ -89,8 +91,8 @@ public class ArtistaDAO extends Artista{
                 ps.setString(2, this.getNacionalidad());
                 ps.setString(3, this.getFoto());
                 ps.setInt(4, this.getId());
-                result= ps.executeUpdate();
-            }else{
+                result = ps.executeUpdate();
+            } else {
                 //INSERT
                 String q = "INSERT INTO artista (id,nombre,nacionalidad,foto) VALUES(NULL,?,?,?)";
                 PreparedStatement ps = csql.prepareStatement(q, Statement.RETURN_GENERATED_KEYS);
@@ -98,51 +100,53 @@ public class ArtistaDAO extends Artista{
                 ps.setString(2, this.getNacionalidad());
                 ps.setString(3, this.getFoto());
                 result = ps.executeUpdate();
-                try(ResultSet generatedKeys = ps.getGeneratedKeys()){
-                    if(generatedKeys.next()){
+                try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
                         result = generatedKeys.getInt(1); //devuelve el ultimo id insertado
                     }
                 }
                 this.setId(result);
             }
-            
-        }catch (SQLException ex) {
+
+        } catch (SQLException ex) {
             Logger.getLogger(ArtistaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return result;
     }
-    
-    public static List<Artista> selectAll(){
+
+    public static List<Artista> selectAll() {
         return selectAll("");
     }
-    
+
     /**
-     * Funcion que selecciona por usuario todos los clientes de la base de datos que sea por el pattern
+     * Funcion que selecciona por usuario todos los clientes de la base de datos
+     * que sea por el pattern
+     *
      * @param pattern Palabra por lo que se filtra el select
      * @return devuelve una lista de clientes
      */
-    public static List<Artista> selectAll(String pattern){
+    public static List<Artista> selectAll(String pattern) {
         List<Artista> result = new ArrayList<>();
-        
+
         try {
             java.sql.Connection csql = ConnectionUtil.getConnection();
             String q = "SELECT * FROM artista";
-            
-            if(pattern.length()>0){
-                q+=" WHERE nombre LIKE ?";
+
+            if (pattern.length() > 0) {
+                q += " WHERE nombre LIKE ?";
             }
-            
+
             PreparedStatement ps = csql.prepareStatement(q);
-            
-            if(pattern.length()>0){
-                ps.setString(1, pattern+"%");
+
+            if (pattern.length() > 0) {
+                ps.setString(1, pattern + "%");
             }
-            
+
             ResultSet rs = ps.executeQuery();
-            
-            if(rs != null){
-                while(rs.next()){
+
+            if (rs != null) {
+                while (rs.next()) {
                     Artista a = new Artista();
                     a.setId(rs.getInt("id"));
                     a.setNombre(rs.getString("nombre"));
@@ -151,31 +155,32 @@ public class ArtistaDAO extends Artista{
                     result.add(a);
                 }
             }
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println(ex);
             Logger.getLogger(ArtistaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return result;
     }
-    
-    public int remove(){
+
+    public int remove() {
         int result = -1;
-        
-        if(this.getId() > 0){
-            
-            try{
+
+        if (this.getId() > 0) {
+
+            try {
                 java.sql.Connection csql = ConnectionUtil.getConnection();
                 String q = "DELETE FROM artista WHERE id = " + this.getId();
                 PreparedStatement ps = csql.prepareStatement(q);
                 result = ps.executeUpdate();
-                if(result>0)
+                if (result > 0) {
                     this.setId(-1);
-            }catch (SQLException ex) {
+                }
+            } catch (SQLException ex) {
                 Logger.getLogger(ArtistaDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         return result;
     }
 }

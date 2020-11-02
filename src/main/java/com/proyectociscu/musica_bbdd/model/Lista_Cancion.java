@@ -1,4 +1,5 @@
-package com.proyectociscu.model;
+package com.proyectociscu.musica_bbdd.model;
+
 
 public class Lista_Cancion {
 

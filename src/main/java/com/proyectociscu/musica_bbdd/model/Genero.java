@@ -1,6 +1,4 @@
-
-package com.proyectociscu.model;
-
+package com.proyectociscu.musica_bbdd.model;
 
 public class Genero {
 
@@ -8,15 +6,18 @@ public class Genero {
     private String nombre;
 
     public Genero() {
+        this(-1, "");
     }
 
-    
+    public Genero(String nombre) {
+        this.nombre = nombre;
+    }
+
     public Genero(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
 
-    
     public int getId() {
         return id;
     }
@@ -37,6 +38,5 @@ public class Genero {
     public String toString() {
         return "Genero{" + "id=" + id + ", nombre=" + nombre + '}';
     }
-    
-    
+
 }
