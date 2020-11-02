@@ -1,6 +1,5 @@
 package com.proyectociscu.musica_bbdd;
 
-import com.proyectociscu.model.Lista;
 import com.proyectociscu.musica_bbdd.model.Artista;
 import com.proyectociscu.musica_bbdd.model.ArtistaDAO;
 import com.proyectociscu.musica_bbdd.model.Cancion;
@@ -12,6 +11,7 @@ import com.proyectociscu.musica_bbdd.model.Lista_Cancion;
 import com.proyectociscu.musica_bbdd.model.Reproduce;
 import com.proyectociscu.musica_bbdd.model.Subscripcion;
 import com.proyectociscu.musica_bbdd.model.Usuario;
+import com.proyectociscu.musica_bbdd.model.Lista;
 import java.util.List;
 
 public class RepositorioObjetos {
