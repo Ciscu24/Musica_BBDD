@@ -30,14 +30,14 @@ public class DiscoDAO extends Disco {
     }
 
     public DiscoDAO(int id, String nombre, String foto,
-            Timestamp fecha_produccion, Artista[] artistas) {
-        super(id, nombre, foto, fecha_produccion, artistas);
+            Artista creador, Timestamp fecha_produccion) {
+        super(id, nombre, foto, creador, fecha_produccion);
         persist = false;
     }
 
     public DiscoDAO(String nombre, String foto,
-            Timestamp fecha_produccion, Artista[] artistas) {
-        super(-1, nombre, foto, fecha_produccion, artistas);
+            Timestamp fecha_produccion, Artista creador) {
+        super(-1, nombre, foto, creador, fecha_produccion);
         persist = false;
     }
 
@@ -45,9 +45,8 @@ public class DiscoDAO extends Disco {
         this.setId(d.getId());
         this.setNombre(d.getNombre());
         this.setFoto(d.getFoto());
+        this.setCreador(d.getCreador());
         this.setFecha_produccion(d.getFecha_produccion());
-        this.setArtistas(d.getArtistas());
-
     }
 
     public void persist() {
@@ -83,7 +82,6 @@ public class DiscoDAO extends Disco {
         }
     }
 
-    
     public void setFecha_Produccion(Timestamp fecha_produccion) {
         super.setFecha_produccion(fecha_produccion);
         if (persist) {
@@ -91,8 +89,8 @@ public class DiscoDAO extends Disco {
         }
     }
 
-    public void setArtista(Artista[] artistas) {
-        super.setArtistas(artistas);
+    public void setCreador(Artista creador) {
+        super.setCreador(creador);
         if (persist) {
             save();
         }
@@ -106,22 +104,23 @@ public class DiscoDAO extends Disco {
 
             if (this.getId() > 0) {
                 //UPDATE
-                String q = "UPDATE disco SET nombre = ?, foto = ? , fecha_produccion=?, artistas=? WHERE id = ?";
+                String q = "UPDATE disco SET nombre = ?, foto = ? , id_artista=?, fecha_produccion=? WHERE id = ?";
                 PreparedStatement ps = csql.prepareStatement(q);
                 ps.setString(1, this.getNombre());
                 ps.setString(2, this.getFoto());
                 ps.setTimestamp(3, this.getFecha_produccion());
-                ps.setObject(4, this.getArtistas());
+                ps.setObject(4, this.getCreador());
                 ps.setInt(5, this.getId());
                 result = ps.executeUpdate();
             } else {
                 //INSERT
-                String q = "INSERT INTO disco (id,nombre,foto,fecha_produccion,artistas) VALUES(NULL,?,?,?,?,?)";
+                String q = "INSERT INTO disco (id,nombre,foto,id_artista , fecha_pro) VALUES(NULL,?,?,?,?,?)";
                 PreparedStatement ps = csql.prepareStatement(q, Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1, this.getNombre());
                 ps.setString(2, this.getFoto());
-                ps.setTimestamp(3, this.getFecha_produccion());
-                ps.setObject(4, this.getArtistas());
+                ps.setObject(3, this.getCreador());
+                ps.setTimestamp(4, this.getFecha_produccion());
+
                 result = ps.executeUpdate();
                 try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
@@ -174,9 +173,9 @@ public class DiscoDAO extends Disco {
                     d.setId(rs.getInt("id"));
                     d.setNombre(rs.getString("nombre"));
                     d.setFoto(rs.getString("foto"));
+                    d.setCreador((Artista) rs.getObject("id_creador"));
                     d.setFecha_produccion(rs.getTimestamp("fecha_produccion"));
-                    d.setArtistas((Artista[]) rs.getObject("artistas"));
-
+                    
                     result.add(d);
                 }
             }

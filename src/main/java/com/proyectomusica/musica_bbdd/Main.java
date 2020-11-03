@@ -6,5 +6,7 @@ public class Main {
         //GeneroDAO hipohop=new GeneroDAO(4,"HOP");
         // hipohop.save();
         //System.out.println(RepositorioObjetos.generos);
+        
+        AppController.ejecutar();
     }
 }

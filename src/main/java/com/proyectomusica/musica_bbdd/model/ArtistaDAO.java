@@ -13,19 +13,20 @@ import java.util.logging.Logger;
 public class ArtistaDAO extends Artista {
 
     private boolean persist;
+    
 
     public ArtistaDAO() {
         super();
         persist = false;
     }
 
-    public ArtistaDAO(int id, String nombre, String nacionalidad, String foto) {
-        super(id, nombre, nacionalidad, foto);
+    public ArtistaDAO(int id, String nombre, String nacionalidad, String foto, Disco[] disco) {
+        super(id, nombre, nacionalidad, foto, disco);
         persist = false;
     }
 
-    public ArtistaDAO(String nombre, String nacionalidad, String foto) {
-        super(-1, nombre, nacionalidad, foto);
+    public ArtistaDAO(String nombre, String nacionalidad, String foto, Disco[] disco) {
+        super(-1, nombre, nacionalidad, foto, disco);
         persist = false;
     }
 
@@ -34,6 +35,7 @@ public class ArtistaDAO extends Artista {
         this.setNombre(a.getNombre());
         this.setNacionalidad(a.getNacionalidad());
         this.setFoto(a.getFoto());
+        this.setDisco(a.getDisco());
     }
 
     public void persist() {
@@ -48,7 +50,6 @@ public class ArtistaDAO extends Artista {
     public void setId(int id) {
         super.setId(id);
         if (persist) {
-
             save();
         }
     }
@@ -77,6 +78,14 @@ public class ArtistaDAO extends Artista {
         }
     }
 
+    @Override
+    public void setDisco(Disco[] Disco) {
+        super.setDisco(disco);
+        if (persist) {
+            save();
+        }
+    }
+
     public int save() {
         int result = -1;
 
@@ -85,7 +94,7 @@ public class ArtistaDAO extends Artista {
 
             if (this.getId() > 0) {
                 //UPDATE
-                String q = "UPDATE artista SET nombre = ?, nacionalidad = ?, foto = ? WHERE id = ?";
+                String q = "UPDATE artista SET nombre = ?, nacionalidad = ?, foto = ?, disco=? WHERE id = ?";
                 PreparedStatement ps = csql.prepareStatement(q);
                 ps.setString(1, this.getNombre());
                 ps.setString(2, this.getNacionalidad());
@@ -94,11 +103,12 @@ public class ArtistaDAO extends Artista {
                 result = ps.executeUpdate();
             } else {
                 //INSERT
-                String q = "INSERT INTO artista (id,nombre,nacionalidad,foto) VALUES(NULL,?,?,?)";
+                String q = "INSERT INTO artista (id,nombre,nacionalidad,foto,disco) VALUES(NULL,?,?,?,?)";
                 PreparedStatement ps = csql.prepareStatement(q, Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1, this.getNombre());
                 ps.setString(2, this.getNacionalidad());
                 ps.setString(3, this.getFoto());
+                ps.setObject(4, this.getDisco());
                 result = ps.executeUpdate();
                 try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
@@ -152,6 +162,7 @@ public class ArtistaDAO extends Artista {
                     a.setNombre(rs.getString("nombre"));
                     a.setNacionalidad(rs.getString("nacionalidad"));
                     a.setFoto(rs.getString("foto"));
+                    a.setDisco((Disco[]) rs.getObject("disco"));
                     result.add(a);
                 }
             }

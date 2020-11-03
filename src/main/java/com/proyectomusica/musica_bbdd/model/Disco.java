@@ -16,30 +16,27 @@ public class Disco {
     protected int id;
     protected String nombre;
     protected String foto;
+    protected Artista creador;
     protected Timestamp fecha_produccion;
-    protected Artista[] artistas;
-    boolean synced;
 
     public Disco(int id) {
         this.id = id;
         this.nombre = "";
         this.foto = "";
-        this.fecha_produccion = fecha_produccion;
-        this.artistas = artistas;
-        this.synced=false;
-
-       
+        this.creador = null;
+        this.fecha_produccion = null;
     }
 
     public Disco() {
+        this(-1, "", "", null, null);
     }
 
-    public Disco(int id, String nombre, String foto, Timestamp fecha_produccion, Artista[] artistas) {
+    public Disco(int id, String nombre, String foto, Artista creador, Timestamp fecha_produccion) {
         this.id = id;
         this.nombre = nombre;
-        this.foto = foto;     
+        this.foto = foto;
+        this.creador = creador;
         this.fecha_produccion = fecha_produccion;
-        this.artistas = artistas;
     }
 
     public int getId() {
@@ -50,15 +47,13 @@ public class Disco {
         this.id = id;
     }
 
-    public Artista[] getArtistas() {
-        return artistas;
+    public Artista getCreador() {
+        return creador;
     }
 
-    public void setArtistas(Artista[] artistas) {
-        this.artistas = artistas;
+    public void setCreador(Artista creador) {
+        this.creador = creador;
     }
-    
-    
 
     public String getNombre() {
         return nombre;
@@ -86,7 +81,7 @@ public class Disco {
 
     @Override
     public String toString() {
-        return "disco{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto +", fecha_produccion=" + fecha_produccion + '}';
+        return "Disco{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + ", artistas=" + creador + ", fecha_produccion=" + fecha_produccion + '}';
     }
 
 }
