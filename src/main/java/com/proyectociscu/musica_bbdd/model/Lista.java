@@ -11,10 +11,10 @@ package com.proyectociscu.musica_bbdd.model;
  */
 public class Lista {
 
-    private int id;
-    private String nombre;
-    private String descripcion;
-    private int id_ususario;
+    protected int id;
+    protected String nombre;
+    protected String descripcion;
+    protected int id_ususario;
 
     public Lista() {
     }

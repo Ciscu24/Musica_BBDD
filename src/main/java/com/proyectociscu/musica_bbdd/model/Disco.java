@@ -13,21 +13,33 @@ import java.sql.Timestamp;
  */
 public class Disco {
 
-    private int id;
-    private String nombre;
-    private String foto;
-    private int id_artista;
-    private Timestamp fecha_produccion;
+    protected int id;
+    protected String nombre;
+    protected String foto;
+    protected Timestamp fecha_produccion;
+    protected Artista[] artistas;
+    boolean synced;
+
+    public Disco(int id) {
+        this.id = id;
+        this.nombre = "";
+        this.foto = "";
+        this.fecha_produccion = fecha_produccion;
+        this.artistas = artistas;
+        this.synced=false;
+
+       
+    }
 
     public Disco() {
     }
 
-    public Disco(int id, String nombre, String foto, int id_artista, Timestamp fecha_produccion) {
+    public Disco(int id, String nombre, String foto, Timestamp fecha_produccion, Artista[] artistas) {
         this.id = id;
         this.nombre = nombre;
-        this.foto = foto;
-        this.id_artista = id_artista;
+        this.foto = foto;     
         this.fecha_produccion = fecha_produccion;
+        this.artistas = artistas;
     }
 
     public int getId() {
@@ -37,6 +49,16 @@ public class Disco {
     public void setId(int id) {
         this.id = id;
     }
+
+    public Artista[] getArtistas() {
+        return artistas;
+    }
+
+    public void setArtistas(Artista[] artistas) {
+        this.artistas = artistas;
+    }
+    
+    
 
     public String getNombre() {
         return nombre;
@@ -54,14 +76,6 @@ public class Disco {
         this.foto = foto;
     }
 
-    public int getId_artista() {
-        return id_artista;
-    }
-
-    public void setId_artista(int id_artista) {
-        this.id_artista = id_artista;
-    }
-
     public Timestamp getFecha_produccion() {
         return fecha_produccion;
     }
@@ -72,7 +86,7 @@ public class Disco {
 
     @Override
     public String toString() {
-        return "disco{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + ", id_artista=" + id_artista + ", fecha_produccion=" + fecha_produccion + '}';
+        return "disco{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto +", fecha_produccion=" + fecha_produccion + '}';
     }
 
 }

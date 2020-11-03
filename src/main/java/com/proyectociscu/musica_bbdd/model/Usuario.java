@@ -11,10 +11,10 @@ package com.proyectociscu.musica_bbdd.model;
  * @author matad
  */
 public class Usuario {
-    private int id;
-    private String correo;
-    private String nombre;
-    private String foto;
+    protected int id;
+    protected String correo;
+    protected String nombre;
+    protected String foto;
 
     public Usuario() {
     }
@@ -25,6 +25,14 @@ public class Usuario {
         this.nombre = nombre;
         this.foto = foto;
     }
+
+    public Usuario(String correo, String nombre, String foto) {
+        this.correo = correo;
+        this.nombre = nombre;
+        this.foto = foto;
+    }
+    
+    
 
     public int getId() {
         return id;

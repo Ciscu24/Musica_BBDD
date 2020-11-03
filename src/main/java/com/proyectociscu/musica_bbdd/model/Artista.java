@@ -6,6 +6,7 @@ public class Artista {
     private String nombre;
     private String nacionalidad;
     private String foto;
+    
 
     public Artista() {
         this(-1,"","","");
