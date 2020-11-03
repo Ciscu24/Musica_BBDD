@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 public class ArtistaDAO extends Artista {
 
     private boolean persist;
-    
 
     public ArtistaDAO() {
         super();
@@ -162,9 +161,39 @@ public class ArtistaDAO extends Artista {
                     a.setNombre(rs.getString("nombre"));
                     a.setNacionalidad(rs.getString("nacionalidad"));
                     a.setFoto(rs.getString("foto"));
-                    a.setDisco((Disco[]) rs.getObject("disco"));
+                    //a.setDisco(new Disco(rs.getInt("id"), "", "", null, null));
                     result.add(a);
                 }
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            Logger.getLogger(ArtistaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return result;
+    }
+
+    public static Artista selectAllForId(int id) {
+        Artista result = new Artista();
+
+        try {
+            java.sql.Connection csql = ConnectionUtil.getConnection();
+            String q = "SELECT * FROM artista WHERE id=?";
+
+            PreparedStatement ps = csql.prepareStatement(q);
+
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs != null) {
+                rs.next();
+                result.setId(rs.getInt("id"));
+                result.setNombre(rs.getString("nombre"));
+                result.setNacionalidad(rs.getString("nacionalidad"));
+                result.setFoto(rs.getString("foto"));
+                //a.setDisco(new Disco(rs.getInt("id"), "", "", null, null));
+
             }
         } catch (SQLException ex) {
             System.out.println(ex);

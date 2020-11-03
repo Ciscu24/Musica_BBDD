@@ -104,7 +104,7 @@ public class DiscoDAO extends Disco {
 
             if (this.getId() > 0) {
                 //UPDATE
-                String q = "UPDATE disco SET nombre = ?, foto = ? , id_artista=?, fecha_produccion=? WHERE id = ?";
+                String q = "UPDATE disco SET nombre = ?, foto = ? , id_artista=?, fecha_prod=? WHERE id = ?";
                 PreparedStatement ps = csql.prepareStatement(q);
                 ps.setString(1, this.getNombre());
                 ps.setString(2, this.getFoto());
@@ -173,8 +173,8 @@ public class DiscoDAO extends Disco {
                     d.setId(rs.getInt("id"));
                     d.setNombre(rs.getString("nombre"));
                     d.setFoto(rs.getString("foto"));
-                    d.setCreador((Artista) rs.getObject("id_creador"));
-                    d.setFecha_produccion(rs.getTimestamp("fecha_produccion"));
+                    d.setCreador(new Artista(rs.getInt("id"),"" , "", null, null));
+                    d.setFecha_produccion(rs.getTimestamp("fecha_pro"));
                     
                     result.add(d);
                 }

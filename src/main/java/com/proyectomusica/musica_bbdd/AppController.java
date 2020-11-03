@@ -14,6 +14,7 @@ import java.util.List;
 
 public class AppController {
 
+    /*
     public static List<Artista> artistas = ArtistaDAO.selectAll();
     public static List<Cancion> canciones = null;
     public static List<Disco> discos = DiscoDAO.selectAll();
@@ -21,20 +22,29 @@ public class AppController {
     public static List<Lista_Cancion> listas_canciones = null;
     public static List<Subscripcion> subcripciones = null;
     public static List<Usuario> usuarios = null;
+*/
     
     public static void ejecutar(){
         //Funciona para probar los DAO
         
-        List<Lista> listado = ListaDAO.selectAll();
+        //List<Lista> listado = ListaDAO.selectAll();
         
-        //System.out.println(listado);
+       // Lista l = listado.get(0);
         
-        Lista l = listado.get(0);
+        //System.out.println(l);
         
-        System.out.println(l);
+       // l.getCreador();
         
-        l.getCreador();
+       // System.out.println(l);
         
-        System.out.println(l);
+        
+        ///////
+        
+        List<Disco> discos= DiscoDAO.selectAll();
+        System.out.println(discos);
+        
+        Disco d=discos.get(0);
+        d.getCreador();
+        System.out.println(d);
     }
 }

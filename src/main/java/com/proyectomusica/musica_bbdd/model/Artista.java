@@ -28,6 +28,7 @@ public class Artista {
     }
 
     public Disco[] getDisco() {
+        
         return disco;
     }
 
@@ -72,6 +73,8 @@ public class Artista {
     public String toString() {
         return "Artista{" + "id=" + id + ", nombre=" + nombre + ", nacionalidad=" + nacionalidad + ", foto=" + foto + ", disco=" + disco + '}';
     }
+    
+    
 
 
 
