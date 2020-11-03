@@ -5,15 +5,15 @@ public class Lista {
     protected int id;
     protected String nombre;
     protected String descripcion;
-    protected int id_ususario;
+    protected Usuario creador;
 
     public Lista() {}
 
-    public Lista(int id, String nombre, String descripcion, int id_ususario) {
+    public Lista(int id, String nombre, String descripcion, Usuario creador) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.id_ususario = id_ususario;
+        this.creador = creador;
     }
 
     public int getId() {
@@ -40,17 +40,20 @@ public class Lista {
         this.descripcion = descripcion;
     }
 
-    public int getId_ususario() {
-        return id_ususario;
+    public Usuario getCreador() {
+        if(this.creador.correo.equals("") || this.creador.nombre.equals("") || this.creador.foto.equals("")){
+            creador = new UsuarioDAO().selectAllForID(id);
+        }
+        return creador;
     }
 
-    public void setId_ususario(int id_ususario) {
-        this.id_ususario = id_ususario;
+    public void setCreador(Usuario creador) {
+        this.creador = creador;
     }
 
     @Override
     public String toString() {
-        return "Lista{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", id_ususario=" + id_ususario + '}';
+        return "Lista{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", creador=" + creador + '}';
     }
 
 }

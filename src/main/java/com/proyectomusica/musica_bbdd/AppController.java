@@ -9,6 +9,7 @@ import com.proyectomusica.musica_bbdd.model.Lista_Cancion;
 import com.proyectomusica.musica_bbdd.model.Subscripcion;
 import com.proyectomusica.musica_bbdd.model.Usuario;
 import com.proyectomusica.musica_bbdd.model.Lista;
+import com.proyectomusica.musica_bbdd.model.ListaDAO;
 import java.util.List;
 
 public class AppController {
@@ -23,5 +24,17 @@ public class AppController {
     
     public static void ejecutar(){
         //Funciona para probar los DAO
+        
+        List<Lista> listado = ListaDAO.selectAll();
+        
+        //System.out.println(listado);
+        
+        Lista l = listado.get(0);
+        
+        System.out.println(l);
+        
+        l.getCreador();
+        
+        System.out.println(l);
     }
 }

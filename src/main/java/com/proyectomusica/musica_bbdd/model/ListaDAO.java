@@ -10,30 +10,29 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class UsuarioDAO extends Usuario {
-
+public class ListaDAO extends Lista{
     private boolean persist;
 
-    public UsuarioDAO() {
+    public ListaDAO() {
         super();
         persist = false;
     }
 
-    public UsuarioDAO(int id, String correo, String nombre, String foto) {
-        super(id, correo, nombre, foto);
+    public ListaDAO(int id, String nombre, String descripcion, Usuario creador) {
+        super(id, nombre, descripcion, creador);
         persist = false;
     }
 
-    public UsuarioDAO(String nombre, String nacionalidad, String foto) {
-        super(-1, nombre, nacionalidad, foto);
+    public ListaDAO(String nombre, String descripcion, Usuario creador) {
+        super(-1, nombre, descripcion, creador);
         persist = false;
     }
 
-    public UsuarioDAO(Usuario u) {
-        this.id = u.id;
-        this.correo = u.correo;
-        this.nombre = u.nombre;
-        this.foto = u.foto;
+    public ListaDAO(Lista l) {
+        this.id = l.id;
+        this.nombre = l.nombre;
+        this.descripcion = l.descripcion;
+        this.creador = l.creador;
     }
 
     public void persist() {
@@ -61,16 +60,16 @@ public class UsuarioDAO extends Usuario {
     }
 
     @Override
-    public void setCorreo(String correo) {
-        super.setCorreo(correo);
+    public void setDescripcion(String descripcion) {
+        super.setDescripcion(descripcion);
         if (persist) {
             save();
         }
     }
 
     @Override
-    public void setFoto(String foto) {
-        super.setFoto(foto);
+    public void setCreador(Usuario creador) {
+        super.setCreador(creador);
         if (persist) {
             save();
         }
@@ -84,20 +83,20 @@ public class UsuarioDAO extends Usuario {
             
             if(this.id>0){
                 //UPDATE
-                String q = "UPDATE usuario SET correo = ?, nombre = ?, foto = ? WHERE id = ?";
+                String q = "UPDATE lista SET nombre = ?, descripcion = ?, id_usuario = ? WHERE id = ?";
                 PreparedStatement ps = csql.prepareStatement(q);
-                ps.setString(1, correo);
-                ps.setString(2, nombre);
-                ps.setString(3, foto);
+                ps.setString(1, nombre);
+                ps.setString(2, descripcion);
+                ps.setInt(3, creador.id);
                 ps.setInt(4, id);
                 result= ps.executeUpdate();
             }else{
                 //INSERT
-                String q = "INSERT INTO usuario (id,correo,nombre,foto) VALUES(NULL,?,?,?)";
+                String q = "INSERT INTO lista (id,nombre,descripcion,id_usuario) VALUES(NULL,?,?,?)";
                 PreparedStatement ps = csql.prepareStatement(q, Statement.RETURN_GENERATED_KEYS);
-                ps.setString(1, correo);
-                ps.setString(2, nombre);
-                ps.setString(3, foto);
+                ps.setString(1, nombre);
+                ps.setString(2, descripcion);
+                ps.setInt(3, creador.id);
                 result = ps.executeUpdate();
                 try(ResultSet generatedKeys = ps.getGeneratedKeys()){
                     if(generatedKeys.next()){
@@ -108,13 +107,13 @@ public class UsuarioDAO extends Usuario {
             }
             
         }catch (SQLException ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return result;
     }
     
-    public static List<Usuario> selectAll(){
+    public static List<Lista> selectAll(){
         return selectAll("");
     }
     
@@ -123,12 +122,12 @@ public class UsuarioDAO extends Usuario {
      * @param pattern Palabra por lo que se filtra el select
      * @return devuelve una lista de usuarios
      */
-    public static List<Usuario> selectAll(String pattern){
-        List<Usuario> result = new ArrayList<>();
+    public static List<Lista> selectAll(String pattern){
+        List<Lista> result = new ArrayList<>();
         
         try {
             java.sql.Connection csql = ConnectionUtil.getConnection();
-            String q = "SELECT * FROM usuario";
+            String q = "SELECT * FROM lista";
             
             if(pattern.length()>0){
                 q+=" WHERE nombre LIKE ?";
@@ -144,45 +143,17 @@ public class UsuarioDAO extends Usuario {
             
             if(rs != null){
                 while(rs.next()){
-                    Usuario u = new Usuario();
-                    u.setId(rs.getInt("id"));
-                    u.setCorreo(rs.getString("correo"));
-                    u.setNombre(rs.getString("nombre"));
-                    u.setFoto(rs.getString("foto"));
-                    result.add(u);
+                    Lista l = new Lista();
+                    l.setId(rs.getInt("id"));
+                    l.setNombre(rs.getString("nombre"));
+                    l.setDescripcion(rs.getString("descripcion"));
+                    l.setCreador(new Usuario(rs.getInt("id_usuario"), "", "", ""));
+                    result.add(l);
                 }
             }
         }catch (SQLException ex) {
             System.out.println(ex);
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return result;
-    }
-    
-    public static Usuario selectAllForID(int id){
-        Usuario result = new Usuario();
-        
-        try {
-            java.sql.Connection csql = ConnectionUtil.getConnection();
-            String q = "SELECT * FROM usuario WHERE id = ?";
-            
-            PreparedStatement ps = csql.prepareStatement(q);
-            
-            ps.setInt(1,id);
-            
-            ResultSet rs = ps.executeQuery();
-            
-            if(rs != null){
-                rs.next();
-                result.id= rs.getInt("id");
-                result.correo = rs.getString("correo");
-                result.nombre = rs.getString("nombre");
-                result.foto = rs.getString("foto");
-            }
-        }catch (SQLException ex) {
-            System.out.println(ex);
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return result;
