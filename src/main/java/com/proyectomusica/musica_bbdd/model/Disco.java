@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.proyectociscu.musica_bbdd.model;
+package com.proyectomusica.musica_bbdd.model;
 
 import java.sql.Timestamp;
 

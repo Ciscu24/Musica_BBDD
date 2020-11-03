@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.proyectociscu.musica_bbdd.model;
+package com.proyectomusica.musica_bbdd.model;
 
-/**
- *
- * @author matad
- */
 public class Lista {
 
     protected int id;
@@ -16,8 +7,7 @@ public class Lista {
     protected String descripcion;
     protected int id_ususario;
 
-    public Lista() {
-    }
+    public Lista() {}
 
     public Lista(int id, String nombre, String descripcion, int id_ususario) {
         this.id = id;

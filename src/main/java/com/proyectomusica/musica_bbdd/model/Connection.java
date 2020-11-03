@@ -1,4 +1,4 @@
-package com.proyectociscu.musica_bbdd.model;
+package com.proyectomusica.musica_bbdd.model;
 
 import java.io.File;
 import java.util.logging.Level;

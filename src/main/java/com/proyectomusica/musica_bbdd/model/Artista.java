@@ -1,4 +1,4 @@
-package com.proyectociscu.musica_bbdd.model;
+package com.proyectomusica.musica_bbdd.model;
 
 public class Artista {
 

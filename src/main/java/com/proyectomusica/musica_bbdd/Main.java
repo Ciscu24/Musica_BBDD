@@ -1,10 +1,10 @@
-package com.proyectociscu.musica_bbdd;
+package com.proyectomusica.musica_bbdd;
 
 
 public class Main {
     public static void main(String[] args) {             
         //GeneroDAO hipohop=new GeneroDAO(4,"HOP");
         // hipohop.save();
-        //System.out.println(RepositorioObjetos.generos);       
+        //System.out.println(RepositorioObjetos.generos);
     }
 }

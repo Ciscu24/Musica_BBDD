@@ -1,8 +1,8 @@
-package com.proyectociscu.musica_bbdd.utils;
+package com.proyectomusica.musica_bbdd.utils;
 
 
-import com.proyectociscu.musica_bbdd.RepositorioObjetos;
-import com.proyectociscu.musica_bbdd.model.Artista;
+import com.proyectomusica.musica_bbdd.AppController;
+import com.proyectomusica.musica_bbdd.model.Artista;
 import java.util.List;
 
 public class ArtistaUtils {

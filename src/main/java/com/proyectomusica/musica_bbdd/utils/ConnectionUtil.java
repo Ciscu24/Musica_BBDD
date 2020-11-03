@@ -1,6 +1,6 @@
-package com.proyectociscu.musica_bbdd.utils;
+package com.proyectomusica.musica_bbdd.utils;
 
-import com.proyectociscu.musica_bbdd.model.Connection;
+import com.proyectomusica.musica_bbdd.model.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;

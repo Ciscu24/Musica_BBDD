@@ -1,53 +1,39 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.proyectociscu.musica_bbdd.model;
+package com.proyectomusica.musica_bbdd.model;
 
-import com.proyectociscu.musica_bbdd.utils.ConnectionUtil;
+import com.proyectomusica.musica_bbdd.utils.ConnectionUtil;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author matad
- */
-public class DiscoDAO extends Disco {
+public class ArtistaDAO extends Artista {
 
     private boolean persist;
 
-    public DiscoDAO() {
+    public ArtistaDAO() {
         super();
         persist = false;
     }
 
-    public DiscoDAO(int id, String nombre, String foto,
-            Timestamp fecha_produccion, Artista[] artistas) {
-        super(id, nombre, foto, fecha_produccion, artistas);
+    public ArtistaDAO(int id, String nombre, String nacionalidad, String foto) {
+        super(id, nombre, nacionalidad, foto);
         persist = false;
     }
 
-    public DiscoDAO(String nombre, String foto,
-            Timestamp fecha_produccion, Artista[] artistas) {
-        super(-1, nombre, foto, fecha_produccion, artistas);
+    public ArtistaDAO(String nombre, String nacionalidad, String foto) {
+        super(-1, nombre, nacionalidad, foto);
         persist = false;
     }
 
-    public DiscoDAO(Disco d) {
-        this.setId(d.getId());
-        this.setNombre(d.getNombre());
-        this.setFoto(d.getFoto());
-        this.setFecha_produccion(d.getFecha_produccion());
-        this.setArtistas(d.getArtistas());
-
+    public ArtistaDAO(Artista a) {
+        this.setId(a.getId());
+        this.setNombre(a.getNombre());
+        this.setNacionalidad(a.getNacionalidad());
+        this.setFoto(a.getFoto());
     }
 
     public void persist() {
@@ -76,23 +62,16 @@ public class DiscoDAO extends Disco {
     }
 
     @Override
+    public void setNacionalidad(String nacionalidad) {
+        super.setNacionalidad(nacionalidad);
+        if (persist) {
+            save();
+        }
+    }
+
+    @Override
     public void setFoto(String foto) {
         super.setFoto(foto);
-        if (persist) {
-            save();
-        }
-    }
-
-    
-    public void setFecha_Produccion(Timestamp fecha_produccion) {
-        super.setFecha_produccion(fecha_produccion);
-        if (persist) {
-            save();
-        }
-    }
-
-    public void setArtista(Artista[] artistas) {
-        super.setArtistas(artistas);
         if (persist) {
             save();
         }
@@ -106,22 +85,20 @@ public class DiscoDAO extends Disco {
 
             if (this.getId() > 0) {
                 //UPDATE
-                String q = "UPDATE disco SET nombre = ?, foto = ? , fecha_produccion=?, artistas=? WHERE id = ?";
+                String q = "UPDATE artista SET nombre = ?, nacionalidad = ?, foto = ? WHERE id = ?";
                 PreparedStatement ps = csql.prepareStatement(q);
                 ps.setString(1, this.getNombre());
-                ps.setString(2, this.getFoto());
-                ps.setTimestamp(3, this.getFecha_produccion());
-                ps.setObject(4, this.getArtistas());
-                ps.setInt(5, this.getId());
+                ps.setString(2, this.getNacionalidad());
+                ps.setString(3, this.getFoto());
+                ps.setInt(4, this.getId());
                 result = ps.executeUpdate();
             } else {
                 //INSERT
-                String q = "INSERT INTO disco (id,nombre,foto,fecha_produccion,artistas) VALUES(NULL,?,?,?,?,?)";
+                String q = "INSERT INTO artista (id,nombre,nacionalidad,foto) VALUES(NULL,?,?,?)";
                 PreparedStatement ps = csql.prepareStatement(q, Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1, this.getNombre());
-                ps.setString(2, this.getFoto());
-                ps.setTimestamp(3, this.getFecha_produccion());
-                ps.setObject(4, this.getArtistas());
+                ps.setString(2, this.getNacionalidad());
+                ps.setString(3, this.getFoto());
                 result = ps.executeUpdate();
                 try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
@@ -138,7 +115,7 @@ public class DiscoDAO extends Disco {
         return result;
     }
 
-    public static List<Disco> selectAll() {
+    public static List<Artista> selectAll() {
         return selectAll("");
     }
 
@@ -149,12 +126,12 @@ public class DiscoDAO extends Disco {
      * @param pattern Palabra por lo que se filtra el select
      * @return devuelve una lista de clientes
      */
-    public static List<Disco> selectAll(String pattern) {
-        List<Disco> result = new ArrayList<>();
+    public static List<Artista> selectAll(String pattern) {
+        List<Artista> result = new ArrayList<>();
 
         try {
             java.sql.Connection csql = ConnectionUtil.getConnection();
-            String q = "SELECT * FROM disco";
+            String q = "SELECT * FROM artista";
 
             if (pattern.length() > 0) {
                 q += " WHERE nombre LIKE ?";
@@ -170,19 +147,17 @@ public class DiscoDAO extends Disco {
 
             if (rs != null) {
                 while (rs.next()) {
-                    Disco d = new Disco();
-                    d.setId(rs.getInt("id"));
-                    d.setNombre(rs.getString("nombre"));
-                    d.setFoto(rs.getString("foto"));
-                    d.setFecha_produccion(rs.getTimestamp("fecha_produccion"));
-                    d.setArtistas((Artista[]) rs.getObject("artistas"));
-
-                    result.add(d);
+                    Artista a = new Artista();
+                    a.setId(rs.getInt("id"));
+                    a.setNombre(rs.getString("nombre"));
+                    a.setNacionalidad(rs.getString("nacionalidad"));
+                    a.setFoto(rs.getString("foto"));
+                    result.add(a);
                 }
             }
         } catch (SQLException ex) {
             System.out.println(ex);
-            Logger.getLogger(DiscoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ArtistaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return result;
@@ -195,17 +170,17 @@ public class DiscoDAO extends Disco {
 
             try {
                 java.sql.Connection csql = ConnectionUtil.getConnection();
-                String q = "DELETE FROM disco WHERE id = " + this.getId();
+                String q = "DELETE FROM artista WHERE id = " + this.getId();
                 PreparedStatement ps = csql.prepareStatement(q);
                 result = ps.executeUpdate();
                 if (result > 0) {
                     this.setId(-1);
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(DiscoDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ArtistaDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
         return result;
     }
-
 }
