@@ -37,13 +37,25 @@ public class AppController {
         // l.getCreador();
         // System.out.println(l);
         ///////
-        List<Disco> discos = DiscoDAO.selectAll();
-        System.out.println(discos);
+        
+        
+        /*List<Disco> discos = DiscoDAO.selectAll();
+        //System.out.println(discos);
 
         Disco d = discos.get(0);
-        //d.getCreador();
-        System.out.println(d.getCreador().getFoto());
+        System.out.println(d.toStringWithCanciones());
+        d.getCreador();
+        d.getCanciones();
+        System.out.println(d.toStringWithCanciones());
+        
+        
+        System.out.println(d.getCanciones());*/
+        
+        
+        
+        
         principal();
+        
     }
 
     public static void principal() {

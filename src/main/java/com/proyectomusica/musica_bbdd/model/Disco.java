@@ -79,6 +79,9 @@ public class Disco {
     }
 
     public List<Cancion> getCanciones() {
+        if(canciones==null){
+            canciones = CancionDAO.selectAll(id);
+        }
         return canciones;
     }
 
@@ -86,10 +89,12 @@ public class Disco {
         this.canciones = canciones;
     }
     
-    
-
     @Override
     public String toString() {
+        return "Disco{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + ", artistas=" + creador + ", fecha_produccion=" + fecha_produccion + "}";
+    }
+    
+    public String toStringWithCanciones(){
         return "Disco{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + ", artistas=" + creador + ", fecha_produccion=" + fecha_produccion + ", canciones=" + canciones + "}";
     }
 

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.proyectomusica.musica_bbdd.model;
 
 import com.proyectomusica.musica_bbdd.utils.ConnectionUtil;
@@ -16,10 +11,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author matad
- */
 public class DiscoDAO extends Disco {
 
     private boolean persist;
@@ -29,24 +20,23 @@ public class DiscoDAO extends Disco {
         persist = false;
     }
 
-    public DiscoDAO(int id, String nombre, String foto,
-            Artista creador, Timestamp fecha_produccion) {
-        super(id, nombre, foto, creador, fecha_produccion);
+    public DiscoDAO(int id, String nombre, String foto, Artista creador, Timestamp fecha_produccion, List<Cancion> canciones) {
+        super(id, nombre, foto, creador, fecha_produccion, canciones);
         persist = false;
     }
 
-    public DiscoDAO(String nombre, String foto,
-            Timestamp fecha_produccion, Artista creador) {
-        super(-1, nombre, foto, creador, fecha_produccion);
+    public DiscoDAO(String nombre, String foto, Timestamp fecha_produccion, Artista creador, List<Cancion> canciones) {
+        super(-1, nombre, foto, creador, fecha_produccion, canciones);
         persist = false;
     }
 
     public DiscoDAO(Disco d) {
-        this.setId(d.getId());
-        this.setNombre(d.getNombre());
-        this.setFoto(d.getFoto());
-        this.setCreador(d.getCreador());
-        this.setFecha_produccion(d.getFecha_produccion());
+        this.id = d.id;
+        this.nombre = d.nombre;
+        this.foto = d.foto;
+        this.creador = d.creador;
+        this.fecha_produccion = d.fecha_produccion;
+        this.canciones = d.canciones;    
     }
 
     public void persist() {
@@ -61,7 +51,6 @@ public class DiscoDAO extends Disco {
     public void setId(int id) {
         super.setId(id);
         if (persist) {
-
             save();
         }
     }
@@ -95,6 +84,13 @@ public class DiscoDAO extends Disco {
             save();
         }
     }
+    
+    public void setCanciones(List<Cancion> canciones){
+        super.setCanciones(canciones);
+        if(persist){
+            save();
+        }
+    }
 
     public int save() {
         int result = -1;
@@ -108,17 +104,17 @@ public class DiscoDAO extends Disco {
                 PreparedStatement ps = csql.prepareStatement(q);
                 ps.setString(1, this.getNombre());
                 ps.setString(2, this.getFoto());
-                ps.setTimestamp(3, this.getFecha_produccion());
-                ps.setObject(4, this.getCreador());
+                ps.setInt(3, this.creador.id);
+                ps.setTimestamp(4, this.getFecha_produccion());
                 ps.setInt(5, this.getId());
                 result = ps.executeUpdate();
             } else {
                 //INSERT
-                String q = "INSERT INTO disco (id,nombre,foto,id_artista , fecha_pro) VALUES(NULL,?,?,?,?,?)";
+                String q = "INSERT INTO disco (id,nombre,foto,id_artista,fecha_pro) VALUES(NULL,?,?,?,?)";
                 PreparedStatement ps = csql.prepareStatement(q, Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1, this.getNombre());
                 ps.setString(2, this.getFoto());
-                ps.setObject(3, this.getCreador());
+                ps.setObject(3, this.creador.id);
                 ps.setTimestamp(4, this.getFecha_produccion());
 
                 result = ps.executeUpdate();
@@ -131,7 +127,7 @@ public class DiscoDAO extends Disco {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ArtistaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DiscoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return result;
@@ -175,6 +171,7 @@ public class DiscoDAO extends Disco {
                     d.setFoto(rs.getString("foto"));
                     d.setCreador(new Artista(rs.getInt("id"),"" , "", null, null));
                     d.setFecha_produccion(rs.getTimestamp("fecha_pro"));
+                    d.setCanciones(null);
                     
                     result.add(d);
                 }
