@@ -102,12 +102,11 @@ public class ArtistaDAO extends Artista {
                 result = ps.executeUpdate();
             } else {
                 //INSERT
-                String q = "INSERT INTO artista (id,nombre,nacionalidad,foto,disco) VALUES(NULL,?,?,?,?)";
+                String q = "INSERT INTO artista (id,nombre,nacionalidad,foto) VALUES(NULL,?,?,?,?)";
                 PreparedStatement ps = csql.prepareStatement(q, Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1, this.getNombre());
                 ps.setString(2, this.getNacionalidad());
                 ps.setString(3, this.getFoto());
-                ps.setObject(4, this.getDisco());
                 result = ps.executeUpdate();
                 try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
@@ -173,6 +172,7 @@ public class ArtistaDAO extends Artista {
         return result;
     }
 
+    
     public static Artista selectAllForId(int id) {
         Artista result = new Artista();
 

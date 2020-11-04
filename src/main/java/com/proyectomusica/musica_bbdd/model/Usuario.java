@@ -16,6 +16,7 @@ public class Usuario {
     }
 
     public Usuario(String correo, String nombre, String foto) {
+        this.id=-1;
         this.correo = correo;
         this.nombre = nombre;
         this.foto = foto;
