@@ -1,16 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.proyectomusica.musica_bbdd.model;
 
 import java.sql.Timestamp;
+import java.util.List;
 
-/**
- *
- * @author matad
- */
 public class Disco {
 
     protected int id;
@@ -18,6 +10,7 @@ public class Disco {
     protected String foto;
     protected Artista creador;
     protected Timestamp fecha_produccion;
+    protected List<Cancion> canciones;
 
     public Disco(int id) {
         this.id = id;
@@ -25,18 +18,20 @@ public class Disco {
         this.foto = "";
         this.creador = null;
         this.fecha_produccion = null;
+        this.canciones = null;
     }
 
     public Disco() {
-        this(-1, "", "", null, null);
+        this(-1, "", "", null, null, null);
     }
 
-    public Disco(int id, String nombre, String foto, Artista creador, Timestamp fecha_produccion) {
+    public Disco(int id, String nombre, String foto, Artista creador, Timestamp fecha_produccion, List<Cancion> canciones) {
         this.id = id;
         this.nombre = nombre;
         this.foto = foto;
         this.creador = creador;
         this.fecha_produccion = fecha_produccion;
+        this.canciones = canciones;
     }
 
     public int getId() {
@@ -83,9 +78,19 @@ public class Disco {
         this.fecha_produccion = fecha_produccion;
     }
 
+    public List<Cancion> getCanciones() {
+        return canciones;
+    }
+
+    public void setCanciones(List<Cancion> canciones) {
+        this.canciones = canciones;
+    }
+    
+    
+
     @Override
     public String toString() {
-        return "Disco{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + ", artistas=" + creador + ", fecha_produccion=" + fecha_produccion + '}';
+        return "Disco{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + ", artistas=" + creador + ", fecha_produccion=" + fecha_produccion + ", canciones=" + canciones + "}";
     }
 
 }
