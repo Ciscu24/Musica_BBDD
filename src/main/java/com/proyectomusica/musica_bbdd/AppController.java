@@ -10,12 +10,14 @@ import com.proyectomusica.musica_bbdd.model.Subscripcion;
 import com.proyectomusica.musica_bbdd.model.Usuario;
 import com.proyectomusica.musica_bbdd.model.Lista;
 import com.proyectomusica.musica_bbdd.model.ListaDAO;
+import com.proyectomusica.musica_bbdd.model.UsuarioDAO;
 import static com.proyectomusica.musica_bbdd.utils.Utils.devolverInt;
 import static com.proyectomusica.musica_bbdd.utils.Utils.devolverString;
 import java.util.List;
 import java.util.Scanner;
 
 import static com.proyectomusica.musica_bbdd.utils.Utils.pulsarEnter;
+import java.util.ArrayList;
 
 public class AppController {
 
@@ -37,8 +39,6 @@ public class AppController {
         // l.getCreador();
         // System.out.println(l);
         ///////
-        
-        
         /*List<Disco> discos = DiscoDAO.selectAll();
         //System.out.println(discos);
 
@@ -50,12 +50,8 @@ public class AppController {
         
         
         System.out.println(d.getCanciones());*/
-        
-        
-        
-        
         principal();
-        
+
     }
 
     public static void principal() {
@@ -86,17 +82,18 @@ public class AppController {
                 break;
 
             case 2: //Caso 2 para 
-//                registrarse();
+                registrarse();
                 break;
 
             case 3: //Caso 3 para 
-                // InicioEmpleados();
+                Iniciar_sesion();
                 break;
 
         }
     }
 
     public static boolean Iniciar_sesion() {
+
         boolean result = false;
 
         System.out.println("\n+-------------------+");
@@ -104,20 +101,72 @@ public class AppController {
         System.out.println("+-------------------+");
         String usuario = devolverString("Introduce tu nombre: ");
         String contrasena = devolverString("Introduce tu contraseña: ");
+
+        List<Usuario> Buscar = UsuarioDAO.selectAll(usuario);
         if (usuario != null && contrasena != null) {
-            // if (Controller.clients.searchUser(usuario) ) {
-            // System.out.println("Inicio de sesion correcto");
-            pulsarEnter();
-            lista_sesion(usuario);
-            // } else {
-            // System.out.println("Usuario o contraseña incorrecta");
-            pulsarEnter();
-            // }
         }
+        boolean bandera = false;
+
+        for (int i = 0; i < Buscar.size() && !bandera; i++) {
+            System.out.println(Buscar.get(i));
+            if (Buscar.get(i).equals(usuario)) {
+                System.out.println("Encontrado");
+                bandera = true;
+
+            }
+        }
+
         return result;
     }
 
+    public static void registrarse() {
+        System.out.println("\n+-------------------+");
+        System.out.println("|    Registrarse    |");
+        System.out.println("+-------------------+");
+        String nombre = devolverString("Introduce tu nombre: ");
+        String correo = devolverString("Introduce un correo: ");
+        String foto = devolverString("Introduce una foto");
+        if (nombre.equals("") && correo.equals("") && foto.equals("")) {
+            System.out.println("No se ha podido realizar el registro");
+        } else {
+            UsuarioDAO usuario = new UsuarioDAO(nombre, correo, foto);
+            usuario.save();
+            System.out.println("Usuario creado");
+        }
+        pulsarEnter();
+    }
+
     static void lista_sesion(String usuario) {
+        if (usuario.equals("Admin")) {
+            int opcion = 0;
+            do {
+                System.out.println("\n+-------------------------+");
+                System.out.println("|    Menu administrador     |");
+                System.out.println("+---------------------------+");
+                System.out.println("| 1) Listar Discos          |");
+                System.out.println("| 2) Suscripciones          |");
+                System.out.println("| 3) Listar de Reproducion  |");
+                System.out.println("| 0) Salir                  |");
+                System.out.println("+---------------------------+");
+
+                opcion = devolverInt("Introduce una opcion: ");
+
+                switch (opcion) {
+                    case 1:
+                        lista_discos();
+                        break;
+
+                    case 2:
+                        break;
+
+                    case 3:
+
+                        break;
+
+                }
+            } while (opcion != 0);
+
+        }
         int opcion = 0;
         do {
             System.out.println("\n+-------------------------+");
@@ -151,14 +200,14 @@ public class AppController {
     static void lista_discos() {
         int opcion = 0;
         do {
-            System.out.println("\n+---------------------+");
-            System.out.println("|    Menu Listar      |");
-            System.out.println("+---------------------+");
-            System.out.println("| 1) Listar Discos por autor          |");
-            System.out.println("| 2) Listar discos por nombre de disco           |");
-            System.out.println("| 3) Listar Todos        |");
-            System.out.println("| 0) Salir            |");
-            System.out.println("+---------------------+");
+            System.out.println("\n+------------------------------------+");
+            System.out.println("|             Menu Listar              |");
+            System.out.println("+--------------------------------------+");
+            System.out.println("| 1) Listar Discos por autor           |");
+            System.out.println("| 2) Listar discos por nombre de disco |");
+            System.out.println("| 3) Listar Todos                      |");
+            System.out.println("| 0) Salir                             |");
+            System.out.println("+--------------------------------------+");
 
             opcion = devolverInt("Introduce una opcion: ");
 
@@ -168,6 +217,13 @@ public class AppController {
                     break;
 
                 case 2:
+                    String pattern = devolverString("Introduce el nombre del disco: ");
+                    List<Disco> disco_nombre = DiscoDAO.selectAll(pattern);
+                    if (disco_nombre.size() == 0) {
+                        System.out.println("No se han encontrado discos");
+                    } else {
+                        System.out.println(disco_nombre);
+                    }
                     break;
 
                 case 3:
@@ -181,4 +237,23 @@ public class AppController {
 
     }
 
+    public static void prueba() {
+        List<String> s = new ArrayList<String>();
+        s.add("edu");
+        s.add("anto");
+        s.add("ciscu");
+        s.add("rafa");
+        s.add("anto");
+        boolean bandera = false;
+
+        for (int i = 0; i < s.size() && !bandera; i++) {
+            System.out.println(s.get(i));
+            if (s.get(i).equals("anto")) {
+                System.out.println("Hola");
+                bandera = true;
+
+            }
+        }
+
+    }
 }
