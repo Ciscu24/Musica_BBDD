@@ -1,19 +1,23 @@
 package com.proyectomusica.musica_bbdd.model;
 
+import java.util.List;
+
 public class Lista {
 
     protected int id;
     protected String nombre;
     protected String descripcion;
     protected Usuario creador;
+    protected List<Cancion> canciones;
 
     public Lista() {}
 
-    public Lista(int id, String nombre, String descripcion, Usuario creador) {
+    public Lista(int id, String nombre, String descripcion, Usuario creador, List<Cancion> canciones) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.creador = creador;
+        this.canciones = canciones;
     }
 
     public int getId() {
@@ -51,9 +55,34 @@ public class Lista {
         this.creador = creador;
     }
 
+    public List<Cancion> getCanciones() {
+        if(canciones == null){
+            
+        }
+        return canciones;
+    }
+
+    public void setCanciones(List<Cancion> canciones) {
+        this.canciones = canciones;
+    }
+
     @Override
     public String toString() {
-        return "Lista{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", creador=" + creador + '}';
+        return "Lista{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + " }";
     }
+    
+    public String toStringWithUsuario(){
+        return "Lista{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", creador=" + creador + '}';  
+    }
+    
+    public String toStringWithCanciones(){
+        return "Lista{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", canciones=" + canciones + '}';  
+    }
+
+    public String toStringFull() {
+        return "Lista{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", creador=" + creador + ", canciones=" + canciones + '}';
+    }
+    
+    
 
 }

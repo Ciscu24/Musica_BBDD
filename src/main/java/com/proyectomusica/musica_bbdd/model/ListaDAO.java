@@ -18,13 +18,13 @@ public class ListaDAO extends Lista{
         persist = false;
     }
 
-    public ListaDAO(int id, String nombre, String descripcion, Usuario creador) {
-        super(id, nombre, descripcion, creador);
+    public ListaDAO(int id, String nombre, String descripcion, Usuario creador, List<Cancion> canciones) {
+        super(id, nombre, descripcion, creador, canciones);
         persist = false;
     }
 
-    public ListaDAO(String nombre, String descripcion, Usuario creador) {
-        super(-1, nombre, descripcion, creador);
+    public ListaDAO(String nombre, String descripcion, Usuario creador, List<Cancion> canciones) {
+        super(-1, nombre, descripcion, creador, canciones);
         persist = false;
     }
 
@@ -33,6 +33,7 @@ public class ListaDAO extends Lista{
         this.nombre = l.nombre;
         this.descripcion = l.descripcion;
         this.creador = l.creador;
+        this.canciones = l.canciones;
     }
 
     public void persist() {
@@ -75,6 +76,14 @@ public class ListaDAO extends Lista{
         }
     }
 
+    @Override
+    public void setCanciones(List<Cancion> canciones) {
+        super.setCanciones(canciones);
+        if(persist){
+            save();
+        }
+    }
+    
     public int save(){
         int result = -1;
         
@@ -148,6 +157,7 @@ public class ListaDAO extends Lista{
                     l.setNombre(rs.getString("nombre"));
                     l.setDescripcion(rs.getString("descripcion"));
                     l.setCreador(new Usuario(rs.getInt("id_usuario"), "", "", ""));
+                    l.setCanciones(null);
                     result.add(l);
                 }
             }
