@@ -54,15 +54,17 @@ public class AppController {
         
         List<Lista> listas = ListaDAO.selectAll();
         
-        System.out.println(listas.get(0).toStringWithCanciones());
+       
+        System.out.println(listas.get(0).toStringFull());
         
         listas.get(0).getCanciones();
-        
-        System.out.println(listas.get(0).toStringWithCanciones());
-        
+        listas.get(0).getCreador();
         
         
-        //principal();
+        System.out.println(listas.get(0).toStringFull());
+        
+        
+        principal();
 
     }
 
@@ -104,15 +106,16 @@ public class AppController {
         }
     }
 
-    public static boolean Iniciar_sesion() {
+    public static void Iniciar_sesion() {
 
         boolean result = false;
+        System.out.println(UsuarioDAO.selectAll());
 
         System.out.println("\n+-------------------+");
         System.out.println("|   Iniciar Sesion  |");
         System.out.println("+-------------------+");
-        String usuario = devolverString("Introduce tu nombre: ");
-        String contrasena = devolverString("Introduce tu contraseña: ");
+        String usuario = devolverString("Introduce tu usuario: ");
+        String contrasena = devolverString("Introduce tu correo: ");
 
         List<Usuario> Buscar = UsuarioDAO.selectAll(usuario);
         if (usuario != null && contrasena != null) {
@@ -120,15 +123,16 @@ public class AppController {
         boolean bandera = false;
 
         for (int i = 0; i < Buscar.size() && !bandera; i++) {
-            System.out.println(Buscar.get(i));
-            if (Buscar.get(i).equals(usuario)) {
+            
+            if (Buscar.get(i).getNombre().equals(usuario)) {
                 System.out.println("Encontrado");
                 bandera = true;
+                lista_sesion(usuario);
 
             }
         }
 
-        return result;
+      
     }
 
     public static void registrarse() {
@@ -141,7 +145,7 @@ public class AppController {
         if (nombre.equals("") && correo.equals("") && foto.equals("")) {
             System.out.println("No se ha podido realizar el registro");
         } else {
-            UsuarioDAO usuario = new UsuarioDAO(nombre, correo, foto);
+            UsuarioDAO usuario = new UsuarioDAO(correo,nombre, foto);
             usuario.save();
             System.out.println("Usuario creado");
         }
