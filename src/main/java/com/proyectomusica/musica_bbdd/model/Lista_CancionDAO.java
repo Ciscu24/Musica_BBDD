@@ -39,13 +39,12 @@ public class Lista_CancionDAO {
                     c.setNombre(rs.getString("nombre"));
                     c.setDuracion(rs.getInt("duracion"));
                     result.add(c);
-                }
+                } 
             }
         } catch (SQLException ex) {
             System.out.println(ex);
             Logger.getLogger(DiscoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return result;
     }
     

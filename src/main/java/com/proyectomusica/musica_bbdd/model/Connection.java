@@ -69,7 +69,8 @@ public class Connection {
     }
 
     public void loadDataXML() {
-        String file = "utils\\connection.xml";
+        //String file = "utils\\connection.xml";
+        String file = "utils/connection.xml";
         File f = new File(file);
         if (f.canRead()) {
             JAXBContext context;

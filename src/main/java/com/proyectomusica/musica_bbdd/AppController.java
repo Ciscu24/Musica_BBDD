@@ -11,6 +11,7 @@ import com.proyectomusica.musica_bbdd.model.Usuario;
 import com.proyectomusica.musica_bbdd.model.Lista;
 import com.proyectomusica.musica_bbdd.model.ListaDAO;
 import com.proyectomusica.musica_bbdd.model.UsuarioDAO;
+import com.proyectomusica.musica_bbdd.utils.ConnectionUtil;
 import static com.proyectomusica.musica_bbdd.utils.Utils.devolverInt;
 import static com.proyectomusica.musica_bbdd.utils.Utils.devolverString;
 import java.util.List;
@@ -51,13 +52,13 @@ public class AppController {
         
         System.out.println(d.getCanciones());*/
         
-        //List<Lista> listas = ListaDAO.selectAll();
+        List<Lista> listas = ListaDAO.selectAll();
         
-        //System.out.println(listas);
+        System.out.println(listas.get(0).toStringWithCanciones());
         
-        System.out.println(DiscoDAO.selectAll());
+        listas.get(0).getCanciones();
         
-        System.out.println(ListaDAO.selectAll());
+        System.out.println(listas.get(0).toStringWithCanciones());
         
         
         
