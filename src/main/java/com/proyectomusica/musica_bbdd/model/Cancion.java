@@ -50,6 +50,10 @@ public class Cancion {
 
     @Override
     public String toString() {
+        return "Cancion{" + "id=" + id + ", nombre=" + nombre + ", duracion=" + duracion + "}";
+    }
+    
+    public String toStringWithDisco() {
         return "Cancion{" + "id=" + id + ", nombre=" + nombre + ", duracion=" + duracion + ", disco_contenedor=" + disco_contenedor + '}';
     }
 

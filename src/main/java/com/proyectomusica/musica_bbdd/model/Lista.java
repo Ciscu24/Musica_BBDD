@@ -57,7 +57,7 @@ public class Lista {
 
     public List<Cancion> getCanciones() {
         if(canciones == null){
-            
+            Lista_CancionDAO.selectAllCanciones(id);
         }
         return canciones;
     }

@@ -4,7 +4,7 @@ import com.proyectomusica.musica_bbdd.model.Artista;
 import com.proyectomusica.musica_bbdd.model.Cancion;
 import com.proyectomusica.musica_bbdd.model.Disco;
 import com.proyectomusica.musica_bbdd.model.Lista;
-import com.proyectomusica.musica_bbdd.model.Lista_Cancion;
+import com.proyectomusica.musica_bbdd.model.Lista_CancionDAO;
 import com.proyectomusica.musica_bbdd.model.Subscripcion;
 import com.proyectomusica.musica_bbdd.model.Usuario;
 
