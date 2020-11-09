@@ -19,12 +19,12 @@ public class ArtistaDAO extends Artista {
         persist = false;
     }
 
-    public ArtistaDAO(int id, String nombre, String nacionalidad, String foto, Disco[] disco) {
+    public ArtistaDAO(int id, String nombre, String nacionalidad, String foto, List<Disco> disco) {
         super(id, nombre, nacionalidad, foto, disco);
         persist = false;
     }
 
-    public ArtistaDAO(String nombre, String nacionalidad, String foto, Disco[] disco) {
+    public ArtistaDAO(String nombre, String nacionalidad, String foto, List<Disco> disco) {
         super(-1, nombre, nacionalidad, foto, disco);
         persist = false;
     }
@@ -78,7 +78,7 @@ public class ArtistaDAO extends Artista {
     }
 
     @Override
-    public void setDisco(Disco[] Disco) {
+    public void setDisco(List<Disco> Disco) {
         super.setDisco(disco);
         if (persist) {
             save();

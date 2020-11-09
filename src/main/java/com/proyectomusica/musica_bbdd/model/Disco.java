@@ -91,11 +91,22 @@ public class Disco {
     
     @Override
     public String toString() {
-        return "Disco{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + ", artistas=" + creador + ", fecha_produccion=" + fecha_produccion + "}";
+        return "Disco{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + " , fecha_produccion=" + fecha_produccion + "}";
     }
     
     public String toStringWithCanciones(){
-        return "Disco{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + ", artistas=" + creador + ", fecha_produccion=" + fecha_produccion + ", canciones=" + canciones + "}";
+        return "Disco{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + ", fecha_produccion=" + fecha_produccion + ", canciones=" + canciones + "}";
     }
+    
+        public String toStringWithCreador(){
+        return "Disco{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + ", artistas=" + creador + ", fecha_produccion=" + fecha_produccion + "}";
+    }
+
+   
+    public String toStringAll() {
+        return "Disco{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + ", creador=" + creador + ", fecha_produccion=" + fecha_produccion + ", canciones=" + canciones + '}';
+    }
+    
+        
 
 }

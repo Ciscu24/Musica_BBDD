@@ -3,6 +3,7 @@ package com.proyectomusica.musica_bbdd;
 import com.proyectomusica.musica_bbdd.model.Artista;
 import com.proyectomusica.musica_bbdd.model.ArtistaDAO;
 import com.proyectomusica.musica_bbdd.model.Cancion;
+import com.proyectomusica.musica_bbdd.model.CancionDAO;
 import com.proyectomusica.musica_bbdd.model.Disco;
 import com.proyectomusica.musica_bbdd.model.DiscoDAO;
 import com.proyectomusica.musica_bbdd.model.Lista_CancionDAO;
@@ -51,20 +52,18 @@ public class AppController {
         
         
         System.out.println(d.getCanciones());*/
-        
-        List<Lista> listas = ListaDAO.selectAll();
-        
-       
-        System.out.println(listas.get(0).toStringFull());
-        
-        listas.get(0).getCanciones();
-        listas.get(0).getCreador();
-        
-        
-        System.out.println(listas.get(0).toStringFull());
-        
-        
-        principal();
+        //  List<Lista> listas = ListaDAO.selectAll();
+        //  System.out.println(listas.get(0).toStringFull());
+        //  listas.get(0).getCanciones();
+        // listas.get(0).getCreador();
+        // System.out.println(listas.get(0).toStringFull());
+        //System.out.println(ArtistaDAO.selectAllForId(4));
+        List<Artista> ciscu = ArtistaDAO.selectAll();
+        ciscu.get(3).getDisco();
+        System.out.println(ciscu);
+
+        //principal();
+        lista_discos();
 
     }
 
@@ -123,7 +122,7 @@ public class AppController {
         boolean bandera = false;
 
         for (int i = 0; i < Buscar.size() && !bandera; i++) {
-            
+
             if (Buscar.get(i).getNombre().equals(usuario)) {
                 System.out.println("Encontrado");
                 bandera = true;
@@ -132,7 +131,6 @@ public class AppController {
             }
         }
 
-      
     }
 
     public static void registrarse() {
@@ -145,7 +143,7 @@ public class AppController {
         if (nombre.equals("") && correo.equals("") && foto.equals("")) {
             System.out.println("No se ha podido realizar el registro");
         } else {
-            UsuarioDAO usuario = new UsuarioDAO(correo,nombre, foto);
+            UsuarioDAO usuario = new UsuarioDAO(correo, nombre, foto);
             usuario.save();
             System.out.println("Usuario creado");
         }
@@ -156,7 +154,7 @@ public class AppController {
         if (usuario.equals("Admin")) {
             int opcion = 0;
             do {
-                System.out.println("\n+-------------------------+");
+                System.out.println("\n+---------------------------+");
                 System.out.println("|    Menu administrador     |");
                 System.out.println("+---------------------------+");
                 System.out.println("| 1) Listar Discos          |");
@@ -185,14 +183,14 @@ public class AppController {
         }
         int opcion = 0;
         do {
-            System.out.println("\n+-------------------------+");
-            System.out.println("|    Menu Usuario           |");
-            System.out.println("+---------------------------+");
-            System.out.println("| 1) Listar Discos          |");
-            System.out.println("| 2) Suscripciones          |");
-            System.out.println("| 3) Listar de Reproducion  |");
-            System.out.println("| 0) Salir                  |");
-            System.out.println("+---------------------------+");
+            System.out.println("\n+----------------------------+");
+            System.out.println("|    Menu Usuario            |");
+            System.out.println("+----------------------------+");
+            System.out.println("| 1) Listar Discos           |");
+            System.out.println("| 2) Suscripciones           |");
+            System.out.println("| 3) Listar de Reproduccion  |");
+            System.out.println("| 0) Salir                   |");
+            System.out.println("+----------------------------+");
 
             opcion = devolverInt("Introduce una opcion: ");
 
@@ -216,7 +214,7 @@ public class AppController {
     static void lista_discos() {
         int opcion = 0;
         do {
-            System.out.println("\n+------------------------------------+");
+            System.out.println("\n+--------------------------------------+");
             System.out.println("|             Menu Listar              |");
             System.out.println("+--------------------------------------+");
             System.out.println("| 1) Listar Discos por autor           |");
@@ -229,6 +227,31 @@ public class AppController {
 
             switch (opcion) {
                 case 1:
+                    String patternn = devolverString("Introduce el nombre del autor");
+
+                    List<Artista> artista = ArtistaDAO.selectAll(patternn);
+                    List<Disco> disco = new ArrayList<>();
+
+                    for (Artista a : artista) {
+                        System.out.println("El artista que hemos encontrado es: ");
+                        System.out.println(a.getNombre());
+                        System.out.println("Su discos son : ");
+                        for (int i = 0; i < a.getDisco().size(); i++) {
+                            System.out.println(i + 1 + ".- " + a.getDisco().get(i));
+                            disco.add(a.getDisco().get(i));
+                        }
+                    }
+                    
+                    int opcion1 = devolverInt("Pulse 1 Para ver las canciones");
+                    
+                    switch (opcion1) {
+                        case 1:
+                            int numero = devolverInt("Introduce el numero de la lista");
+                            System.out.println(disco.get(numero - 1).getCanciones());
+                            break;
+                        default:
+                            System.out.println("Adios");
+                    }
 
                     break;
 
