@@ -242,18 +242,15 @@ public class AppController {
                         }
                     }
 
-                    int opcion1 = devolverInt("Pulse 1 Para ver las canciones: ");
+                    int opcion1 = devolverInt("Introduce el numero de la lista para ver las canciones o 0 para salir : ");
 
-                    switch (opcion1) {
-                        case 1:
-                            int numero = devolverInt("Introduce el numero de la lista: ");
-                            System.out.println(disco.get(numero - 1).getCanciones());
-                            pulsarEnter();
-                            break;
-                        default:
-                            System.out.println("Adios");
+                    if (opcion1 != 0) {
+                        System.out.println(disco.get(opcion1 - 1).getCanciones());
+                        pulsarEnter();
+                    } else {
+                        System.out.println("Listar finalizado");
+                        pulsarEnter();
                     }
-
                     break;
 
                 case 2:
@@ -289,15 +286,20 @@ public class AppController {
                         for (int i = 0; i < discos.size(); i++) {
                             System.out.println("El disco que hemos encontrado es: ");
                             System.out.println(i + 1 + ".- " + discos.get(i));
-                            System.out.println(discos.get(i).getCanciones());       
                         }
-                        pulsarEnter();
+                        int opcion3 = devolverInt("Introduce el numero de la lista para ver las canciones o 0 para salir : ");
+
+                        if (opcion3 != 0) {
+                            System.out.println(discos.get(opcion3 - 1).getCanciones());
+                            pulsarEnter();
+                        } else {
+                            System.out.println("Listar finalizado");
+                            pulsarEnter();
+                        }
                         break;
                     }
             }
-
         } while (opcion != 0);
-
     }
 
     public static void prueba() {
