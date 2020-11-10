@@ -46,7 +46,7 @@ public class Lista {
 
     public Usuario getCreador() {
         if(this.creador.correo.equals("") || this.creador.nombre.equals("") || this.creador.foto.equals("")){
-            creador = new UsuarioDAO().selectAllForID(id);
+            creador = new UsuarioDAO().selectAllForID(creador.id);
         }
         return creador;
     }

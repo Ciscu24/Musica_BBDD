@@ -174,29 +174,28 @@ public class ArtistaDAO extends Artista {
     
     public static Artista selectAllForId(int id) {
         Artista result = new Artista();
-
+        
         try {
             java.sql.Connection csql = ConnectionUtil.getConnection();
-            String q = "SELECT * FROM artista WHERE id=?";
+            String q = "SELECT * FROM artista WHERE id = ?";
             
             PreparedStatement ps = csql.prepareStatement(q);
-
-            ps.setInt(1, id);
-
+            
+            ps.setInt(1,id);
+            
             ResultSet rs = ps.executeQuery();
-
-            if (rs.next() != false) {
-                result.setId(rs.getInt("id"));
-                result.setNombre(rs.getString("nombre"));
-                result.setNacionalidad(rs.getString("nacionalidad"));
-                result.setFoto(rs.getString("foto"));
-                //a.setDisco(new Disco(rs.getInt("id"), "", "", null, null));
-
+            
+            if(rs.next() != false){
+                result.id= rs.getInt("id");
+                result.nombre = rs.getString("nombre");
+                result.nacionalidad = rs.getString("nacionalidad");
+                result.foto = rs.getString("foto");
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(ArtistaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }catch (SQLException ex) {
+            System.out.println(ex);
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         return result;
     }
     

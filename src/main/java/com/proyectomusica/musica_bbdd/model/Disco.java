@@ -52,9 +52,8 @@ public class Disco {
     }
 
     public Artista getCreador() {
-        
-        if(creador.nombre.equals("")){        
-           creador= ArtistaDAO.selectAllForId(id);
+        if(creador.nombre.equals("")){
+           creador = ArtistaDAO.selectAllForId(creador.id);
         }
         return creador;
     }

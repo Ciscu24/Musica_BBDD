@@ -251,7 +251,9 @@ public class AppController {
                     switch (opcion1) {
                         case 1:
                             int numero = devolverInt("Introduce el numero de la lista: ");
-                            System.out.println(disco.get(numero - 1).getCanciones());
+                            for(Cancion cancion : disco.get(numero - 1).getCanciones()){
+                                System.out.println(cancion);
+                            }
                             pulsarEnter();
                             break;
                         default:
@@ -293,7 +295,7 @@ public class AppController {
                         for (int i = 0; i < discos.size(); i++) {
                             System.out.println("El disco que hemos encontrado es: ");
                             System.out.println(i + 1 + ".- " + discos.get(i));
-                            System.out.println(discos.get(i).getCanciones());       
+                            System.out.println(discos.get(i).getCanciones());
                         }
                         pulsarEnter();
                         break;

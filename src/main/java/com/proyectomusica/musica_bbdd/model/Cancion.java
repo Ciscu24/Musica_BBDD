@@ -41,6 +41,9 @@ public class Cancion {
     }
 
     public Disco getDisco_contenedor() {
+        if(disco_contenedor.nombre.equals("")){
+            disco_contenedor = DiscoDAO.selectAllForId(disco_contenedor.id);
+        }
         return disco_contenedor;
     }
 
