@@ -93,7 +93,7 @@ public class ArtistaDAO extends Artista {
 
             if (this.getId() > 0) {
                 //UPDATE
-                String q = "UPDATE artista SET nombre = ?, nacionalidad = ?, foto = ?, disco=? WHERE id = ?";
+                String q = "UPDATE artista SET nombre = ?, nacionalidad = ?, foto = ? WHERE id = ?";
                 PreparedStatement ps = csql.prepareStatement(q);
                 ps.setString(1, this.getNombre());
                 ps.setString(2, this.getNacionalidad());
@@ -102,7 +102,7 @@ public class ArtistaDAO extends Artista {
                 result = ps.executeUpdate();
             } else {
                 //INSERT
-                String q = "INSERT INTO artista (id,nombre,nacionalidad,foto) VALUES(NULL,?,?,?,?)";
+                String q = "INSERT INTO artista (id,nombre,nacionalidad,foto) VALUES(NULL,?,?,?)";
                 PreparedStatement ps = csql.prepareStatement(q, Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1, this.getNombre());
                 ps.setString(2, this.getNacionalidad());
@@ -165,7 +165,6 @@ public class ArtistaDAO extends Artista {
                 }
             }
         } catch (SQLException ex) {
-            System.out.println(ex);
             Logger.getLogger(ArtistaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -175,28 +174,54 @@ public class ArtistaDAO extends Artista {
     
     public static Artista selectAllForId(int id) {
         Artista result = new Artista();
+        
+        try {
+            java.sql.Connection csql = ConnectionUtil.getConnection();
+            String q = "SELECT * FROM artista WHERE id = ?";
+            
+            PreparedStatement ps = csql.prepareStatement(q);
+            
+            ps.setInt(1,id);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next() != false){
+                result.id= rs.getInt("id");
+                result.nombre = rs.getString("nombre");
+                result.nacionalidad = rs.getString("nacionalidad");
+                result.foto = rs.getString("foto");
+            }
+        }catch (SQLException ex) {
+            System.out.println(ex);
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result;
+    }
+    
+    
+    public static Artista selectAllForNombre(String nombre) {
+        Artista result = null;
 
         try {
             java.sql.Connection csql = ConnectionUtil.getConnection();
-            String q = "SELECT * FROM artista WHERE id=?";
-
+            String q = "SELECT * FROM artista WHERE nombre=?";
+            
             PreparedStatement ps = csql.prepareStatement(q);
 
-            ps.setInt(1, id);
+            ps.setString(1, nombre);
 
             ResultSet rs = ps.executeQuery();
 
-            if (rs != null) {
-                rs.next();
+            if (rs.next() != false) {
+                result = new Artista();
                 result.setId(rs.getInt("id"));
                 result.setNombre(rs.getString("nombre"));
                 result.setNacionalidad(rs.getString("nacionalidad"));
                 result.setFoto(rs.getString("foto"));
                 //a.setDisco(new Disco(rs.getInt("id"), "", "", null, null));
-
             }
         } catch (SQLException ex) {
-            System.out.println(ex);
             Logger.getLogger(ArtistaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 

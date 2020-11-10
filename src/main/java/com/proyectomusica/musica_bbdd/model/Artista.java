@@ -15,6 +15,7 @@ public class Artista {
     }
 
     public Artista(String nombre, String nacionalidad, String foto, List<Disco> disco) {
+        this.id = -1;
         this.nombre = nombre;
         this.nacionalidad = nacionalidad;
         this.foto = foto;

@@ -65,6 +65,9 @@ public class AppController {
         //principal();
         lista_discos();
 
+        /*
+        Pene
+         */
     }
 
     public static void principal() {
@@ -286,6 +289,7 @@ public class AppController {
                         for (int i = 0; i < discos.size(); i++) {
                             System.out.println("El disco que hemos encontrado es: ");
                             System.out.println(i + 1 + ".- " + discos.get(i));
+
                         }
                         int opcion3 = devolverInt("Introduce el numero de la lista para ver las canciones o 0 para salir : ");
 

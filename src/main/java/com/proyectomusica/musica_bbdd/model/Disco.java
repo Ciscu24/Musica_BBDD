@@ -1,6 +1,6 @@
 package com.proyectomusica.musica_bbdd.model;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.List;
 
 public class Disco {
@@ -9,7 +9,7 @@ public class Disco {
     protected String nombre;
     protected String foto;
     protected Artista creador;
-    protected Timestamp fecha_produccion;
+    protected Date fecha_produccion;
     protected List<Cancion> canciones;
 
     public Disco(int id) {
@@ -24,8 +24,17 @@ public class Disco {
     public Disco() {
         this(-1, "", "", null, null, null);
     }
+    
+    public Disco(String nombre, String foto, Artista creador, Date fecha_produccion, List<Cancion> canciones) {
+        this.id = -1;
+        this.nombre = nombre;
+        this.foto = foto;
+        this.creador = creador;
+        this.fecha_produccion = fecha_produccion;
+        this.canciones = canciones;
+    }
 
-    public Disco(int id, String nombre, String foto, Artista creador, Timestamp fecha_produccion, List<Cancion> canciones) {
+    public Disco(int id, String nombre, String foto, Artista creador, Date fecha_produccion, List<Cancion> canciones) {
         this.id = id;
         this.nombre = nombre;
         this.foto = foto;
@@ -43,9 +52,8 @@ public class Disco {
     }
 
     public Artista getCreador() {
-        
-        if(creador.nombre.equals("")){        
-           creador= ArtistaDAO.selectAllForId(id);
+        if(creador.nombre.equals("")){
+           creador = ArtistaDAO.selectAllForId(creador.id);
         }
         return creador;
     }
@@ -70,11 +78,11 @@ public class Disco {
         this.foto = foto;
     }
 
-    public Timestamp getFecha_produccion() {
+    public Date getFecha_produccion() {
         return fecha_produccion;
     }
 
-    public void setFecha_produccion(Timestamp fecha_produccion) {
+    public void setFecha_produccion(Date fecha_produccion) {
         this.fecha_produccion = fecha_produccion;
     }
 

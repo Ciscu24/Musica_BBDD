@@ -1,11 +1,11 @@
 package com.proyectomusica.musica_bbdd.model;
 
 import com.proyectomusica.musica_bbdd.utils.ConnectionUtil;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -20,12 +20,12 @@ public class DiscoDAO extends Disco {
         persist = false;
     }
 
-    public DiscoDAO(int id, String nombre, String foto, Artista creador, Timestamp fecha_produccion, List<Cancion> canciones) {
+    public DiscoDAO(int id, String nombre, String foto, Artista creador, Date fecha_produccion, List<Cancion> canciones) {
         super(id, nombre, foto, creador, fecha_produccion, canciones);
         persist = false;
     }
 
-    public DiscoDAO(String nombre, String foto, Timestamp fecha_produccion, Artista creador, List<Cancion> canciones) {
+    public DiscoDAO(String nombre, String foto, Date fecha_produccion, Artista creador, List<Cancion> canciones) {
         super(-1, nombre, foto, creador, fecha_produccion, canciones);
         persist = false;
     }
@@ -71,7 +71,7 @@ public class DiscoDAO extends Disco {
         }
     }
 
-    public void setFecha_Produccion(Timestamp fecha_produccion) {
+    public void setFecha_Produccion(Date fecha_produccion) {
         super.setFecha_produccion(fecha_produccion);
         if (persist) {
             save();
@@ -100,12 +100,12 @@ public class DiscoDAO extends Disco {
 
             if (this.getId() > 0) {
                 //UPDATE
-                String q = "UPDATE disco SET nombre = ?, foto = ? , id_artista=?, fecha_prod=? WHERE id = ?";
+                String q = "UPDATE disco SET nombre = ?, foto = ? , id_artista=?, fecha_pro=? WHERE id = ?";
                 PreparedStatement ps = csql.prepareStatement(q);
                 ps.setString(1, this.getNombre());
                 ps.setString(2, this.getFoto());
                 ps.setInt(3, this.creador.id);
-                ps.setTimestamp(4, this.getFecha_produccion());
+                ps.setDate(4, this.getFecha_produccion());
                 ps.setInt(5, this.getId());
                 result = ps.executeUpdate();
             } else {
@@ -115,7 +115,7 @@ public class DiscoDAO extends Disco {
                 ps.setString(1, this.getNombre());
                 ps.setString(2, this.getFoto());
                 ps.setObject(3, this.creador.id);
-                ps.setTimestamp(4, this.getFecha_produccion());
+                ps.setDate(4, this.getFecha_produccion());
 
                 result = ps.executeUpdate();
                 try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
@@ -169,8 +169,8 @@ public class DiscoDAO extends Disco {
                     d.setId(rs.getInt("id"));
                     d.setNombre(rs.getString("nombre"));
                     d.setFoto(rs.getString("foto"));
-                    d.setCreador(new Artista(rs.getInt("id"),"" , "", null, null));
-                    d.setFecha_produccion(rs.getTimestamp("fecha_pro"));
+                    d.setCreador(new Artista(rs.getInt("id_artista"), "", "", "", null));
+                    d.setFecha_produccion(rs.getDate("fecha_pro"));
                     d.setCanciones(null);
                     
                     result.add(d);
@@ -201,12 +201,41 @@ public class DiscoDAO extends Disco {
                     d.setId(rs.getInt("id"));
                     d.setNombre(rs.getString("nombre"));
                     d.setFoto(rs.getString("foto"));
-                    d.setCreador(new Artista(rs.getInt("id"),"" , "", null, null));
-                    d.setFecha_produccion(rs.getTimestamp("fecha_pro"));
+                    d.setCreador(new Artista(rs.getInt("id_artista"), "", "", "", null));
+                    d.setFecha_produccion(rs.getDate("fecha_pro"));
                     d.setCanciones(null);
                     
                     result.add(d);
                 }
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            Logger.getLogger(DiscoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return result;
+    }
+    
+    public static Disco selectAllForId(int id) {
+        Disco result = null;
+
+        try {
+            java.sql.Connection csql = ConnectionUtil.getConnection();
+            String q = "SELECT * FROM disco WHERE id=?";
+            
+            PreparedStatement ps = csql.prepareStatement(q);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next() != false) {
+                result = new Disco();
+                result.setId(rs.getInt("id"));
+                result.setNombre(rs.getString("nombre"));
+                result.setFoto(rs.getString("foto"));
+                result.setCreador(new Artista(rs.getInt("id_artista"), "", "", "", null));
+                result.setFecha_produccion(rs.getDate("fecha_pro"));
+                result.setCanciones(null);
             }
         } catch (SQLException ex) {
             System.out.println(ex);

@@ -1,6 +1,5 @@
 package com.proyectomusica.musica_bbdd;
 
-
 public class Main {
     public static void main(String[] args) {             
         //GeneroDAO hipohop=new GeneroDAO(4,"HOP");
@@ -9,5 +8,6 @@ public class Main {
         
         AppController.ejecutar();
        // AppController.prueba();
+       
     }
 }
