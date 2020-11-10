@@ -150,7 +150,7 @@ public class AppController {
         pulsarEnter();
     }
 
-    static void lista_sesion(String usuario) {
+    public static void lista_sesion(String usuario) {
         if (usuario.equals("Admin")) {
             int opcion = 0;
             do {
@@ -211,7 +211,7 @@ public class AppController {
 
     }
 
-    static void lista_discos() {
+    public static void lista_discos() {
         int opcion = 0;
         do {
             System.out.println("\n+--------------------------------------+");
@@ -227,7 +227,7 @@ public class AppController {
 
             switch (opcion) {
                 case 1:
-                    String patternn = devolverString("Introduce el nombre del autor");
+                    String patternn = devolverString("Introduce el nombre del autor: ");
 
                     List<Artista> artista = ArtistaDAO.selectAll(patternn);
                     List<Disco> disco = new ArrayList<>();
@@ -235,19 +235,20 @@ public class AppController {
                     for (Artista a : artista) {
                         System.out.println("El artista que hemos encontrado es: ");
                         System.out.println(a.getNombre());
-                        System.out.println("Su discos son : ");
+                        System.out.println("Su discos son: ");
                         for (int i = 0; i < a.getDisco().size(); i++) {
                             System.out.println(i + 1 + ".- " + a.getDisco().get(i));
                             disco.add(a.getDisco().get(i));
                         }
                     }
-                    
-                    int opcion1 = devolverInt("Pulse 1 Para ver las canciones");
-                    
+
+                    int opcion1 = devolverInt("Pulse 1 Para ver las canciones: ");
+
                     switch (opcion1) {
                         case 1:
-                            int numero = devolverInt("Introduce el numero de la lista");
+                            int numero = devolverInt("Introduce el numero de la lista: ");
                             System.out.println(disco.get(numero - 1).getCanciones());
+                            pulsarEnter();
                             break;
                         default:
                             System.out.println("Adios");
@@ -258,20 +259,43 @@ public class AppController {
                 case 2:
                     String pattern = devolverString("Introduce el nombre del disco: ");
                     List<Disco> disco_nombre = DiscoDAO.selectAll(pattern);
+
                     if (disco_nombre.size() == 0) {
                         System.out.println("No se han encontrado discos");
                     } else {
-                        System.out.println(disco_nombre);
+                        for (int i = 0; i < disco_nombre.size(); i++) {
+                            System.out.println("El disco que hemos encontrado es: ");
+                            System.out.println(i + 1 + ".- " + disco_nombre.get(i));
+                        }
+
+                        int opcion2 = devolverInt("Introduce el numero de la lista para ver las canciones o 0 para salir : ");
+
+                        if (opcion2 != 0) {
+                            System.out.println(disco_nombre.get(opcion2 - 1).getCanciones());
+                            pulsarEnter();
+                        } else {
+                            System.out.println("Listar finalizado");
+                            pulsarEnter();
+                        }
                     }
                     break;
 
                 case 3:
                     List<Disco> discos = DiscoDAO.selectAll();
-                    System.out.println(discos.toString());
-                    pulsarEnter();
-                    break;
 
+                    if (discos.size() == 0) {
+                        System.out.println("Error");
+                    } else {
+                        for (int i = 0; i < discos.size(); i++) {
+                            System.out.println("El disco que hemos encontrado es: ");
+                            System.out.println(i + 1 + ".- " + discos.get(i));
+                            System.out.println(discos.get(i).getCanciones());       
+                        }
+                        pulsarEnter();
+                        break;
+                    }
             }
+
         } while (opcion != 0);
 
     }
