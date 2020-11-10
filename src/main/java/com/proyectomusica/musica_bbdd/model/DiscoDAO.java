@@ -1,11 +1,11 @@
 package com.proyectomusica.musica_bbdd.model;
 
 import com.proyectomusica.musica_bbdd.utils.ConnectionUtil;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -20,12 +20,12 @@ public class DiscoDAO extends Disco {
         persist = false;
     }
 
-    public DiscoDAO(int id, String nombre, String foto, Artista creador, Timestamp fecha_produccion, List<Cancion> canciones) {
+    public DiscoDAO(int id, String nombre, String foto, Artista creador, Date fecha_produccion, List<Cancion> canciones) {
         super(id, nombre, foto, creador, fecha_produccion, canciones);
         persist = false;
     }
 
-    public DiscoDAO(String nombre, String foto, Timestamp fecha_produccion, Artista creador, List<Cancion> canciones) {
+    public DiscoDAO(String nombre, String foto, Date fecha_produccion, Artista creador, List<Cancion> canciones) {
         super(-1, nombre, foto, creador, fecha_produccion, canciones);
         persist = false;
     }
@@ -71,7 +71,7 @@ public class DiscoDAO extends Disco {
         }
     }
 
-    public void setFecha_Produccion(Timestamp fecha_produccion) {
+    public void setFecha_Produccion(Date fecha_produccion) {
         super.setFecha_produccion(fecha_produccion);
         if (persist) {
             save();
@@ -105,7 +105,7 @@ public class DiscoDAO extends Disco {
                 ps.setString(1, this.getNombre());
                 ps.setString(2, this.getFoto());
                 ps.setInt(3, this.creador.id);
-                ps.setTimestamp(4, this.getFecha_produccion());
+                ps.setDate(4, this.getFecha_produccion());
                 ps.setInt(5, this.getId());
                 result = ps.executeUpdate();
             } else {
@@ -115,7 +115,7 @@ public class DiscoDAO extends Disco {
                 ps.setString(1, this.getNombre());
                 ps.setString(2, this.getFoto());
                 ps.setObject(3, this.creador.id);
-                ps.setTimestamp(4, this.getFecha_produccion());
+                ps.setDate(4, this.getFecha_produccion());
 
                 result = ps.executeUpdate();
                 try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
@@ -170,7 +170,7 @@ public class DiscoDAO extends Disco {
                     d.setNombre(rs.getString("nombre"));
                     d.setFoto(rs.getString("foto"));
                     d.setCreador(new Artista(rs.getInt("id"),"" , "", null, null));
-                    d.setFecha_produccion(rs.getTimestamp("fecha_pro"));
+                    d.setFecha_produccion(rs.getDate("fecha_pro"));
                     d.setCanciones(null);
                     
                     result.add(d);
@@ -202,7 +202,7 @@ public class DiscoDAO extends Disco {
                     d.setNombre(rs.getString("nombre"));
                     d.setFoto(rs.getString("foto"));
                     d.setCreador(new Artista(rs.getInt("id"),"" , "", null, null));
-                    d.setFecha_produccion(rs.getTimestamp("fecha_pro"));
+                    d.setFecha_produccion(rs.getDate("fecha_pro"));
                     d.setCanciones(null);
                     
                     result.add(d);
