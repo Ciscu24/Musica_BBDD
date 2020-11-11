@@ -16,6 +16,14 @@ public class Cancion {
         this.disco_contenedor = disco_contenedor;
     }
 
+    public Cancion(String nombre, int duracion, Disco disco_contenedor) {
+        this.nombre = nombre;
+        this.duracion = duracion;
+        this.disco_contenedor = disco_contenedor;
+    }
+    
+    
+
     public int getId() {
         return id;
     }

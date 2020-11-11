@@ -6,8 +6,9 @@ public class Main {
         // hipohop.save();
         //System.out.println(RepositorioObjetos.generos);
         
-        AppController.ejecutar();
+       // AppController.ejecutar();
        // AppController.prueba();
+       AppControllerCisquito.Menu_Canciones();
        
     }
 }

@@ -244,6 +244,35 @@ public class DiscoDAO extends Disco {
 
         return result;
     }
+    
+    public static Disco selectAllForNombre(String Nombre) {
+        Disco result = null;
+
+        try {
+            java.sql.Connection csql = ConnectionUtil.getConnection();
+            String q = "SELECT * FROM disco WHERE nombre=?";
+            
+            PreparedStatement ps = csql.prepareStatement(q);
+            ps.setString(1, Nombre);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next() != false) {
+                result = new Disco();
+                result.setId(rs.getInt("id"));
+                result.setNombre(rs.getString("nombre"));
+                result.setFoto(rs.getString("foto"));
+                result.setCreador(new Artista(rs.getInt("id_artista"), "", "", "", null));
+                result.setFecha_produccion(rs.getDate("fecha_pro"));
+                result.setCanciones(null);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            Logger.getLogger(DiscoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return result;
+    }
 
     public int remove() {
         int result = -1;

@@ -194,6 +194,35 @@ public class CancionDAO extends Cancion{
         return result;
     }
     
+        public static Cancion selectAllForId(int id) {
+        Cancion result = null;
+
+        try {
+            java.sql.Connection csql = ConnectionUtil.getConnection();
+            String q = "SELECT * FROM cancion WHERE id = ?";
+
+            PreparedStatement ps = csql.prepareStatement(q);
+
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs != null) {
+                while (rs.next()) {
+                    result = new Cancion();
+                    result.setId(rs.getInt("id"));
+                    result.setNombre(rs.getString("nombre"));
+                    result.setDuracion(rs.getInt("duracion"));
+                    result.setDisco_contenedor(new Disco(rs.getInt("id_disco")));
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            Logger.getLogger(DiscoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return result;
+    }
 
     public int remove() {
         int result = -1;
