@@ -77,7 +77,7 @@ public class Lista_CancionDAO {
                     l.setId(rs.getInt("id"));
                     l.setNombre(rs.getString("nombre"));
                     l.setDescripcion(rs.getString("descripcion"));
-                    l.setCreador(new Usuario(rs.getInt("id_usuario"), "", "", ""));
+                    l.setCreador(new Usuario(rs.getInt("id_usuario"), "", "", "", null));
                     l.setCanciones(null);
                     result.add(l);
                 }

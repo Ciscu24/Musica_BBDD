@@ -19,13 +19,18 @@ public class UsuarioDAO extends Usuario {
         persist = false;
     }
 
-    public UsuarioDAO(int id, String correo, String nombre, String foto) {
-        super(id, correo, nombre, foto);
+    public UsuarioDAO(int id, String correo, String nombre, String foto, List<Lista> listas) {
+        super(id, correo, nombre, foto, listas);
         persist = false;
     }
 
+    public UsuarioDAO(String nombre, String nacionalidad, String foto, List<Lista> listas) {
+        super(-1, nombre, nacionalidad, foto, listas);
+        persist = false;
+    }
+    
     public UsuarioDAO(String nombre, String nacionalidad, String foto) {
-        super(-1, nombre, nacionalidad, foto);
+        super(-1, nombre, nacionalidad, foto, null);
         persist = false;
     }
 
@@ -34,6 +39,7 @@ public class UsuarioDAO extends Usuario {
         this.correo = u.correo;
         this.nombre = u.nombre;
         this.foto = u.foto;
+        this.listas = u.listas;
     }
 
     public void persist() {
@@ -76,6 +82,14 @@ public class UsuarioDAO extends Usuario {
         }
     }
 
+    @Override
+    public void setListas(List<Lista> listas) {
+        super.setListas(listas);
+        if(persist){
+            save();
+        }
+    }
+    
     public int save(){
         int result = -1;
         
@@ -149,6 +163,7 @@ public class UsuarioDAO extends Usuario {
                     u.setCorreo(rs.getString("correo"));
                     u.setNombre(rs.getString("nombre"));
                     u.setFoto(rs.getString("foto"));
+                    u.setListas(null);
                     result.add(u);
                 }
             }
@@ -179,6 +194,7 @@ public class UsuarioDAO extends Usuario {
                 result.correo = rs.getString("correo");
                 result.nombre = rs.getString("nombre");
                 result.foto = rs.getString("foto");
+                result.listas = null;
             }
         }catch (SQLException ex) {
             System.out.println(ex);

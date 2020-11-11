@@ -156,7 +156,39 @@ public class ListaDAO extends Lista{
                     l.setId(rs.getInt("id"));
                     l.setNombre(rs.getString("nombre"));
                     l.setDescripcion(rs.getString("descripcion"));
-                    l.setCreador(new Usuario(rs.getInt("id_usuario"), "", "", ""));
+                    l.setCreador(new Usuario(rs.getInt("id_usuario"), "", "", "", null));
+                    l.setCanciones(null);
+                    result.add(l);
+                }
+            }
+        }catch (SQLException ex) {
+            System.out.println(ex);
+            Logger.getLogger(ListaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result;
+    }
+    
+    public static List<Lista> selectAll(int id_usuario){
+        List<Lista> result = new ArrayList<>();
+        
+        try {
+            java.sql.Connection csql = ConnectionUtil.getConnection();
+            String q = "SELECT * FROM lista WHERE id_usuario = ?";
+            
+            PreparedStatement ps = csql.prepareStatement(q);
+            
+            ps.setInt(1, id_usuario);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs != null){
+                while(rs.next()){
+                    Lista l = new Lista();
+                    l.setId(rs.getInt("id"));
+                    l.setNombre(rs.getString("nombre"));
+                    l.setDescripcion(rs.getString("descripcion"));
+                    l.setCreador(new Usuario(rs.getInt("id_usuario"), "", "", "", null));
                     l.setCanciones(null);
                     result.add(l);
                 }
