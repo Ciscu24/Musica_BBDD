@@ -50,18 +50,7 @@ public class Disco {
     public void setId(int id) {
         this.id = id;
     }
-
-    public Artista getCreador() {
-        if(creador.nombre.equals("")){
-           creador = ArtistaDAO.selectAllForId(creador.id);
-        }
-        return creador;
-    }
-
-    public void setCreador(Artista creador) {
-        this.creador = creador;
-    }
-
+    
     public String getNombre() {
         return nombre;
     }
@@ -84,6 +73,17 @@ public class Disco {
 
     public void setFecha_produccion(Date fecha_produccion) {
         this.fecha_produccion = fecha_produccion;
+    }
+    
+    public Artista getCreador() {
+        if(creador.nombre.equals("") || creador.foto.equals("") || creador.nacionalidad.equals("")){
+           creador = ArtistaDAO.selectAllForId(creador.id);
+        }
+        return creador;
+    }
+
+    public void setCreador(Artista creador) {
+        this.creador = creador;
     }
 
     public List<Cancion> getCanciones() {
