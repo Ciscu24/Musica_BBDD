@@ -1,5 +1,7 @@
 package com.proyectomusica.musica_bbdd;
 
+import com.proyectomusica.musica_bbdd.model.ArtistaDAO;
+import com.proyectomusica.musica_bbdd.model.Artista;
 import com.proyectomusica.musica_bbdd.model.CancionDAO;
 import com.proyectomusica.musica_bbdd.model.Cancion;
 import com.proyectomusica.musica_bbdd.model.DiscoDAO;

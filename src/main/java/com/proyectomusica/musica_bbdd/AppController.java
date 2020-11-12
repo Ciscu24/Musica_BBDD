@@ -1,6 +1,5 @@
 package com.proyectomusica.musica_bbdd;
 
-import static com.proyectomusica.musica_bbdd.AppControllerCisquito.Menu_Listas;
 import com.proyectomusica.musica_bbdd.model.Artista;
 import com.proyectomusica.musica_bbdd.model.ArtistaDAO;
 import com.proyectomusica.musica_bbdd.model.Cancion;
@@ -221,7 +220,6 @@ public class AppController {
                 System.out.println("| 1) Artistas               |");
                 System.out.println("| 2) Discos                 |");
                 System.out.println("| 3) Cancion                |");
-                System.out.println("| 4) Lista de Reproduccion  |");
                 System.out.println("| 0) Salir                  |");
                 System.out.println("+---------------------------+");
 
@@ -239,10 +237,6 @@ public class AppController {
                     case 3:
                         Menu_Canciones();
                         break;
-
-                    case 4:
-                        Menu_Listas();
-                        break;
                 }
             } while (opcion != 0);
         }else{
@@ -252,8 +246,8 @@ public class AppController {
                 System.out.println("|    Menu Usuario            |");
                 System.out.println("+----------------------------+");
                 System.out.println("| 1) Listar Discos           |");
-                System.out.println("| 2) Suscripciones           |");
-                System.out.println("| 3) Lista de Reproduccion   |");
+                System.out.println("| 2) Lista de Reproduccion   |");
+                System.out.println("| 3) Suscripciones           |");
                 System.out.println("| 0) Salir                   |");
                 System.out.println("+----------------------------+");
 
