@@ -7,16 +7,18 @@ public class Usuario {
     protected String correo;
     protected String nombre;
     protected String foto;
-    protected List<Lista> listas;
+    protected List<Lista> listas_creadas;
+    protected List<Lista> listas_suscrito;
 
     public Usuario() {}
     
-    public Usuario(int id, String correo, String nombre, String foto, List<Lista> listas) {
+    public Usuario(int id, String correo, String nombre, String foto, List<Lista> listas_creadas, List<Lista> listas_suscrito) {
         this.id = id;
         this.correo = correo;
         this.nombre = nombre;
         this.foto = foto;
-        this.listas = listas;
+        this.listas_creadas = listas_creadas;
+        this.listas_suscrito = listas_suscrito;
     }
     
     public Usuario(String correo, String nombre, String foto) {
@@ -24,15 +26,17 @@ public class Usuario {
         this.correo = correo;
         this.nombre = nombre;
         this.foto = foto;
-        this.listas = null;
+        this.listas_creadas = null;
+        this.listas_suscrito = null;
     }
 
-    public Usuario(String correo, String nombre, String foto, List<Lista> listas) {
+    public Usuario(String correo, String nombre, String foto, List<Lista> listas_creadas, List<Lista> listas_suscrito) {
         this.id=-1;
         this.correo = correo;
         this.nombre = nombre;
         this.foto = foto;
-        this.listas = listas;
+        this.listas_creadas = listas_creadas;
+        this.listas_suscrito = listas_suscrito;
     }
 
     public int getId() {
@@ -67,26 +71,43 @@ public class Usuario {
         this.foto = foto;
     }
 
-    public List<Lista> getListas() {
-        if(listas == null){
-            listas = ListaDAO.selectAll(id);
+    public List<Lista> getListas_creadas() {
+        if(listas_creadas == null){
+            listas_creadas = ListaDAO.selectAll(id);
         }
-        return listas;
+        return listas_creadas;
     }
 
-    public void setListas(List<Lista> listas) {
-        this.listas = listas;
+    public void setListas_creadas(List<Lista> listas_creadas) {
+        this.listas_creadas = listas_creadas;
     }
 
+    public List<Lista> getListas_suscrito() {
+        if(listas_suscrito == null){
+            listas_suscrito = SuscripcionDAO.selectAllListas(id);
+        }
+        return listas_suscrito;
+    }
+
+    public void setListas_suscrito(List<Lista> listas_suscrito) {
+        this.listas_suscrito = listas_suscrito;
+    }
+    
     @Override
     public String toString() {
         return "Usuario{" + "id=" + id + ", correo=" + correo + ", nombre=" + nombre + ", foto=" + foto + '}';
     }
 
-    public String toStringWithListas() {
-        return "Usuario{" + "id=" + id + ", correo=" + correo + ", nombre=" + nombre + ", foto=" + foto + ", listas=" + listas + '}';
+    public String toStringWithListas_Creadas() {
+        return "Usuario{" + "id=" + id + ", correo=" + correo + ", nombre=" + nombre + ", foto=" + foto + ", listas_creadas=" + listas_creadas + '}';
     }
     
-    
+    public String toStringWithListas_Suscrito() {
+        return "Usuario{" + "id=" + id + ", correo=" + correo + ", nombre=" + nombre + ", foto=" + foto + ", listas_suscrito=" + listas_suscrito + '}';
+    }
+
+    public String toStringAll() {
+        return "Usuario{" + "id=" + id + ", correo=" + correo + ", nombre=" + nombre + ", foto=" + foto + ", listas_creadas=" + listas_creadas + ", listas_suscrito=" + listas_suscrito + '}';
+    }
     
 }

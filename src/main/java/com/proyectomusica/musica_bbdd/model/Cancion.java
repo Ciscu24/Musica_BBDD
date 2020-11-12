@@ -1,28 +1,40 @@
 package com.proyectomusica.musica_bbdd.model;
 
+import java.util.List;
+
 public class Cancion {
 
     protected int id;
     protected String nombre;
     protected int duracion;
     protected Disco disco_contenedor;
+    protected List<Lista> listas;
     
     public Cancion() {}
 
-    public Cancion(int id, String nombre, int duracion, Disco disco_contenedor) {
+    public Cancion(int id, String nombre, int duracion, Disco disco_contenedor, List<Lista> listas) {
         this.id = id;
         this.nombre = nombre;
         this.duracion = duracion;
         this.disco_contenedor = disco_contenedor;
+        this.listas = listas;
     }
-
+    
     public Cancion(String nombre, int duracion, Disco disco_contenedor) {
+        this.id = -1;
         this.nombre = nombre;
         this.duracion = duracion;
         this.disco_contenedor = disco_contenedor;
+        this.listas = null;
     }
-    
-    
+
+    public Cancion(String nombre, int duracion, Disco disco_contenedor, List<Lista> listas) {
+        this.id = -1;
+        this.nombre = nombre;
+        this.duracion = duracion;
+        this.disco_contenedor = disco_contenedor;
+        this.listas = listas;
+    }
 
     public int getId() {
         return id;
@@ -59,6 +71,16 @@ public class Cancion {
         this.disco_contenedor = disco_contenedor;
     }
 
+    public List<Lista> getListas() {
+        if(listas == null){
+            listas = Lista_CancionDAO.selectAllListas(id);
+        }
+        return listas;
+    }
+
+    public void setListas(List<Lista> listas) {
+        this.listas = listas;
+    }
     @Override
     public String toString() {
         return "Cancion{" + "id=" + id + ", nombre=" + nombre + ", duracion=" + duracion + "}";
@@ -67,5 +89,15 @@ public class Cancion {
     public String toStringWithDisco() {
         return "Cancion{" + "id=" + id + ", nombre=" + nombre + ", duracion=" + duracion + ", disco_contenedor=" + disco_contenedor + '}';
     }
+
+    public String toStringWithListas() {
+        return "Cancion{" + "id=" + id + ", nombre=" + nombre + ", duracion=" + duracion + ", listas=" + listas + '}';
+    }
+    
+    public String toStringAll() {
+        return "Cancion{" + "id=" + id + ", nombre=" + nombre + ", duracion=" + duracion + ", disco_contenedor=" + disco_contenedor + ", listas=" + listas + '}';
+    }
+    
+    
 
 }

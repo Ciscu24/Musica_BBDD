@@ -8,7 +8,7 @@ import com.proyectomusica.musica_bbdd.model.CancionDAO;
 import com.proyectomusica.musica_bbdd.model.Disco;
 import com.proyectomusica.musica_bbdd.model.DiscoDAO;
 import com.proyectomusica.musica_bbdd.model.Lista_CancionDAO;
-import com.proyectomusica.musica_bbdd.model.Subscripcion;
+import com.proyectomusica.musica_bbdd.model.SuscripcionDAO;
 import com.proyectomusica.musica_bbdd.model.Usuario;
 import com.proyectomusica.musica_bbdd.model.Lista;
 import com.proyectomusica.musica_bbdd.model.ListaDAO;

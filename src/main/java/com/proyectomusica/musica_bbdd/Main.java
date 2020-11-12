@@ -4,6 +4,10 @@ import com.proyectomusica.musica_bbdd.model.CancionDAO;
 import com.proyectomusica.musica_bbdd.model.Cancion;
 import com.proyectomusica.musica_bbdd.model.DiscoDAO;
 import com.proyectomusica.musica_bbdd.model.Disco;
+import com.proyectomusica.musica_bbdd.model.Lista;
+import com.proyectomusica.musica_bbdd.model.ListaDAO;
+import com.proyectomusica.musica_bbdd.model.Usuario;
+import com.proyectomusica.musica_bbdd.model.UsuarioDAO;
 import java.util.List;
 
 public class Main {
@@ -33,7 +37,6 @@ public class Main {
         }
         */
         
-        
-        AppController.ejecutar();
+        //AppController.ejecutar();
     }
 }

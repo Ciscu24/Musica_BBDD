@@ -21,13 +21,13 @@ public class CancionDAO extends Cancion{
     }
     
 
-    public CancionDAO(int id, String nombre, int duracion, Disco disco_contenedor) {
-        super(id, nombre, duracion, disco_contenedor);
+    public CancionDAO(int id, String nombre, int duracion, Disco disco_contenedor, List<Lista> listas) {
+        super(id, nombre, duracion, disco_contenedor, listas);
         persist = false;
     }
 
-    public CancionDAO(String nombre, int duracion, Disco disco_contenedor) {
-        super(-1, nombre, duracion, disco_contenedor);
+    public CancionDAO(String nombre, int duracion, Disco disco_contenedor, List<Lista> listas) {
+        super(-1, nombre, duracion, disco_contenedor, listas);
         persist = false;
     }
 
@@ -36,6 +36,7 @@ public class CancionDAO extends Cancion{
         this.nombre = c.nombre;
         this.duracion = c.duracion;
         this.disco_contenedor = c.disco_contenedor;
+        this.listas = c.listas;
     }
 
     public void persist() {
@@ -72,6 +73,14 @@ public class CancionDAO extends Cancion{
 
     public void setDisco_contenedor(Disco disco_contenedor){
         super.setDisco_contenedor(disco_contenedor);
+        if (persist) {
+            save();
+        }
+    }
+
+    @Override
+    public void setListas(List<Lista> listas) {
+        super.setListas(listas);
         if (persist) {
             save();
         }
@@ -152,6 +161,7 @@ public class CancionDAO extends Cancion{
                     c.setNombre(rs.getString("nombre"));
                     c.setDuracion(rs.getInt("duracion"));
                     c.setDisco_contenedor(new Disco(rs.getInt("id_disco")));
+                    c.setListas(null);
                     result.add(c);
                 }
             }
@@ -183,6 +193,7 @@ public class CancionDAO extends Cancion{
                     c.setNombre(rs.getString("nombre"));
                     c.setDuracion(rs.getInt("duracion"));
                     c.setDisco_contenedor(new Disco(rs.getInt("id_disco")));
+                    c.setListas(null);
                     result.add(c);
                 }
             }
@@ -214,6 +225,7 @@ public class CancionDAO extends Cancion{
                     result.setNombre(rs.getString("nombre"));
                     result.setDuracion(rs.getInt("duracion"));
                     result.setDisco_contenedor(new Disco(rs.getInt("id_disco")));
+                    result.setListas(null);
                 }
             }
         } catch (SQLException ex) {

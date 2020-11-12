@@ -18,13 +18,13 @@ public class ListaDAO extends Lista{
         persist = false;
     }
 
-    public ListaDAO(int id, String nombre, String descripcion, Usuario creador, List<Cancion> canciones) {
-        super(id, nombre, descripcion, creador, canciones);
+    public ListaDAO(int id, String nombre, String descripcion, Usuario creador, List<Cancion> canciones, List<Usuario> usuarios_suscritos) {
+        super(id, nombre, descripcion, creador, canciones, usuarios_suscritos);
         persist = false;
     }
 
-    public ListaDAO(String nombre, String descripcion, Usuario creador, List<Cancion> canciones) {
-        super(-1, nombre, descripcion, creador, canciones);
+    public ListaDAO(String nombre, String descripcion, Usuario creador, List<Cancion> canciones, List<Usuario> usuarios_suscritos) {
+        super(-1, nombre, descripcion, creador, canciones, usuarios_suscritos);
         persist = false;
     }
 
@@ -79,6 +79,14 @@ public class ListaDAO extends Lista{
     @Override
     public void setCanciones(List<Cancion> canciones) {
         super.setCanciones(canciones);
+        if(persist){
+            save();
+        }
+    }
+
+    @Override
+    public void setUsuarios_suscritos(List<Usuario> usuarios_suscritos) {
+        super.setUsuarios_suscritos(usuarios_suscritos);
         if(persist){
             save();
         }
@@ -156,8 +164,9 @@ public class ListaDAO extends Lista{
                     l.setId(rs.getInt("id"));
                     l.setNombre(rs.getString("nombre"));
                     l.setDescripcion(rs.getString("descripcion"));
-                    l.setCreador(new Usuario(rs.getInt("id_usuario"), "", "", "", null));
+                    l.setCreador(new Usuario(rs.getInt("id_usuario"), "", "", "", null, null));
                     l.setCanciones(null);
+                    l.setUsuarios_suscritos(null);
                     result.add(l);
                 }
             }
@@ -188,8 +197,9 @@ public class ListaDAO extends Lista{
                     l.setId(rs.getInt("id"));
                     l.setNombre(rs.getString("nombre"));
                     l.setDescripcion(rs.getString("descripcion"));
-                    l.setCreador(new Usuario(rs.getInt("id_usuario"), "", "", "", null));
+                    l.setCreador(new Usuario(rs.getInt("id_usuario"), "", "", "", null, null));
                     l.setCanciones(null);
+                    l.setUsuarios_suscritos(null);
                     result.add(l);
                 }
             }

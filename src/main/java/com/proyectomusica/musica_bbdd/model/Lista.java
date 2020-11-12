@@ -9,15 +9,17 @@ public class Lista {
     protected String descripcion;
     protected Usuario creador;
     protected List<Cancion> canciones;
+    protected List<Usuario> usuarios_suscritos;
 
     public Lista() {}
 
-    public Lista(int id, String nombre, String descripcion, Usuario creador, List<Cancion> canciones) {
+    public Lista(int id, String nombre, String descripcion, Usuario creador, List<Cancion> canciones, List<Usuario> usuarios_suscritos) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.creador = creador;
         this.canciones = canciones;
+        this.usuarios_suscritos = usuarios_suscritos;
     }
 
     public int getId() {
@@ -66,6 +68,19 @@ public class Lista {
         this.canciones = canciones;
     }
 
+    public List<Usuario> getUsuarios_suscritos() {
+        if(usuarios_suscritos == null){
+            usuarios_suscritos = SuscripcionDAO.selectAllUsuario(id);
+        }
+        return usuarios_suscritos;
+    }
+
+    public void setUsuarios_suscritos(List<Usuario> usuarios_suscritos) {
+        this.usuarios_suscritos = usuarios_suscritos;
+    }
+    
+    
+
     @Override
     public String toString() {
         return "Lista{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + " }";
@@ -79,10 +94,12 @@ public class Lista {
         return "Lista{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", canciones=" + canciones + '}';  
     }
 
-    public String toStringFull() {
-        return "Lista{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", creador=" + creador + ", canciones=" + canciones + '}';
+    public String toStringWithUsuarios_Suscritos() {
+        return "Lista{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", usuarios_suscritos=" + usuarios_suscritos + '}';
     }
     
-    
+    public String toStringFull() {
+        return "Lista{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", creador=" + creador + ", canciones=" + canciones + ", usuarios_suscritos=" + usuarios_suscritos + '}';
+    }
 
 }

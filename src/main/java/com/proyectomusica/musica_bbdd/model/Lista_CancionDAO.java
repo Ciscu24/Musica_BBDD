@@ -48,6 +48,37 @@ public class Lista_CancionDAO {
         return result;
     }
     
+    public static List<Lista> selectAllListas(int id_cancion) {
+        List<Lista> result = new ArrayList<>();
+
+        try {
+            java.sql.Connection csql = ConnectionUtil.getConnection();
+            String q = "SELECT * FROM lista AS l JOIN lista_cancion AS lc ON l.id=lc.id_lista WHERE lc.id_cancion = ?";
+
+            PreparedStatement ps = csql.prepareStatement(q);
+
+            ps.setInt(1, id_cancion);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs != null) {
+                while (rs.next()) {
+                    Lista l = new Lista();
+                    l.setId(rs.getInt("id"));
+                    l.setNombre(rs.getString("nombre"));
+                    l.setDescripcion(rs.getString("descripcion"));
+                    l.setCreador(new Usuario(rs.getInt("id_usuario"), "", "", "", null, null));
+                    l.setCanciones(null);
+                    result.add(l);
+                } 
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            Logger.getLogger(DiscoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+    
     public static List<Lista> selectAllLista(){
         return selectAllLista("");
     }
@@ -77,7 +108,7 @@ public class Lista_CancionDAO {
                     l.setId(rs.getInt("id"));
                     l.setNombre(rs.getString("nombre"));
                     l.setDescripcion(rs.getString("descripcion"));
-                    l.setCreador(new Usuario(rs.getInt("id_usuario"), "", "", "", null));
+                    l.setCreador(new Usuario(rs.getInt("id_usuario"), "", "", "", null, null));
                     l.setCanciones(null);
                     result.add(l);
                 }

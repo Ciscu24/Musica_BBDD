@@ -19,18 +19,18 @@ public class UsuarioDAO extends Usuario {
         persist = false;
     }
 
-    public UsuarioDAO(int id, String correo, String nombre, String foto, List<Lista> listas) {
-        super(id, correo, nombre, foto, listas);
+    public UsuarioDAO(int id, String correo, String nombre, String foto, List<Lista> listas_creadas, List<Lista> listas_suscrito) {
+        super(id, correo, nombre, foto, listas_creadas, listas_suscrito);
         persist = false;
     }
 
-    public UsuarioDAO(String nombre, String nacionalidad, String foto, List<Lista> listas) {
-        super(-1, nombre, nacionalidad, foto, listas);
+    public UsuarioDAO(String nombre, String nacionalidad, String foto, List<Lista> listas_creadas, List<Lista> listas_suscrito) {
+        super(-1, nombre, nacionalidad, foto, listas_creadas, listas_suscrito);
         persist = false;
     }
     
     public UsuarioDAO(String nombre, String nacionalidad, String foto) {
-        super(-1, nombre, nacionalidad, foto, null);
+        super(-1, nombre, nacionalidad, foto, null, null);
         persist = false;
     }
 
@@ -39,7 +39,8 @@ public class UsuarioDAO extends Usuario {
         this.correo = u.correo;
         this.nombre = u.nombre;
         this.foto = u.foto;
-        this.listas = u.listas;
+        this.listas_creadas = u.listas_creadas;
+        this.listas_suscrito = u.listas_suscrito;
     }
 
     public void persist() {
@@ -83,12 +84,22 @@ public class UsuarioDAO extends Usuario {
     }
 
     @Override
-    public void setListas(List<Lista> listas) {
-        super.setListas(listas);
+    public void setListas_creadas(List<Lista> listas_creadas) {
+        super.setListas_creadas(listas_creadas);
         if(persist){
             save();
         }
     }
+
+    @Override
+    public void setListas_suscrito(List<Lista> listas_suscrito) {
+        super.setListas_suscrito(listas_suscrito);
+        if(persist){
+            save();
+        }
+    }
+    
+    
     
     public int save(){
         int result = -1;
@@ -163,7 +174,8 @@ public class UsuarioDAO extends Usuario {
                     u.setCorreo(rs.getString("correo"));
                     u.setNombre(rs.getString("nombre"));
                     u.setFoto(rs.getString("foto"));
-                    u.setListas(null);
+                    u.setListas_creadas(null);
+                    u.setListas_suscrito(null);
                     result.add(u);
                 }
             }
@@ -194,7 +206,8 @@ public class UsuarioDAO extends Usuario {
                 result.correo = rs.getString("correo");
                 result.nombre = rs.getString("nombre");
                 result.foto = rs.getString("foto");
-                result.listas = null;
+                result.listas_creadas = null;
+                result.listas_suscrito = null;
             }
         }catch (SQLException ex) {
             System.out.println(ex);
