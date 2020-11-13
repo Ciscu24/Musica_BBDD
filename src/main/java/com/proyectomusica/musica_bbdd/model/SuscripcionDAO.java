@@ -72,4 +72,32 @@ public class SuscripcionDAO {
         }
         return result;
     }
+ 
+    public static void guardarSuscripcion(int id_usuario, int id_lista){        
+        try {
+            java.sql.Connection csql = ConnectionUtil.getConnection();
+            
+            String q = "INSERT INTO suscripcion (id_usuario, id_lista) VALUES (?,?)";
+            PreparedStatement ps = csql.prepareStatement(q);
+            ps.setInt(1, id_usuario);
+            ps.setInt(2, id_lista);
+            ps.executeUpdate();
+         
+        }catch (SQLException ex) {
+            Logger.getLogger(ListaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void remove(int id_usuario, int id_lista){   
+        try{
+            java.sql.Connection csql = ConnectionUtil.getConnection();
+            String q = "DELETE FROM suscripcion WHERE id_usuario = ? and id_lista = ?";
+            PreparedStatement ps = csql.prepareStatement(q);
+            ps.setInt(1, id_usuario);
+            ps.setInt(2, id_lista);
+            ps.executeUpdate();
+        }catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

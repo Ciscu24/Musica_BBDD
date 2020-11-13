@@ -85,6 +85,10 @@ public class ArtistaDAO extends Artista {
         }
     }
 
+    /**
+     * Metodo que guarda o edita un artista
+     * @return -1 en caso de que no haga nada o el id del artista que hayamos agregado o editado
+     */
     public int save() {
         int result = -1;
 
@@ -123,16 +127,18 @@ public class ArtistaDAO extends Artista {
         return result;
     }
 
+    /**
+     * Metodo que devuelve todos los artistas de la base de datos
+     * @return todos los artistas
+     */
     public static List<Artista> selectAll() {
         return selectAll("");
     }
 
     /**
-     * Funcion que selecciona por usuario todos los clientes de la base de datos
-     * que sea por el pattern
-     *
-     * @param pattern Palabra por lo que se filtra el select
-     * @return devuelve una lista de clientes
+     * Metodo que selecciona a todos los artistas que contengan el nombre pasado
+     * @param pattern nombre que contenga el artista
+     * @return la lista de todos los artistas que contengan el nombre de pattern
      */
     public static List<Artista> selectAll(String pattern) {
         List<Artista> result = new ArrayList<>();
@@ -171,7 +177,11 @@ public class ArtistaDAO extends Artista {
         return result;
     }
 
-    
+    /**
+     * Metodo que devuelve el artista que tiene el id pasado
+     * @param id el id del artista en cuestion
+     * @return el artista con ese id
+     */
     public static Artista selectAllForId(int id) {
         Artista result = new Artista();
         
@@ -199,7 +209,11 @@ public class ArtistaDAO extends Artista {
         return result;
     }
     
-    
+    /**
+     * Metodo que devuelve el artista que tiene exactamente el nombre que se pasa
+     * @param nombre el nombre en cuestion del artista
+     * @return el artista con ese nombre
+     */
     public static Artista selectAllForNombre(String nombre) {
         Artista result = null;
 
@@ -228,6 +242,10 @@ public class ArtistaDAO extends Artista {
         return result;
     }
 
+    /**
+     * Borra de la base de datos el artista
+     * @return -1 si no se ha borrado o el id del artista borrado
+     */
     public int remove() {
         int result = -1;
 

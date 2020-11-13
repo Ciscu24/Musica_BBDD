@@ -91,7 +91,11 @@ public class DiscoDAO extends Disco {
             save();
         }
     }
-
+    
+    /**
+     * Metodo que guarda o edita un disco
+     * @return -1 en caso de que no haga nada o el id del disco que hayamos agregado o editado
+     */
     public int save() {
         int result = -1;
 
@@ -132,17 +136,19 @@ public class DiscoDAO extends Disco {
 
         return result;
     }
-
+    
+    /**
+     * Metodo que devuelve todos los discos de la base de datos
+     * @return todos los artistas
+     */
     public static List<Disco> selectAll() {
         return selectAll("");
     }
 
     /**
-     * Funcion que selecciona por usuario todos los clientes de la base de datos
-     * que sea por el pattern
-     *
-     * @param pattern Palabra por lo que se filtra el select
-     * @return devuelve una lista de clientes
+     * Metodo que selecciona a todos los discos que contengan el nombre pasado
+     * @param pattern nombre que contenga el disco
+     * @return la lista de todos los discos que contengan el nombre de pattern
      */
     public static List<Disco> selectAll(String pattern) {
         List<Disco> result = new ArrayList<>();
@@ -183,39 +189,12 @@ public class DiscoDAO extends Disco {
 
         return result;
     }
-    public static List<Disco> selectAll(int id) {
-        List<Disco> result = new ArrayList<>();
-
-        try {
-            java.sql.Connection csql = ConnectionUtil.getConnection();
-            String q = "SELECT * FROM disco WHERE id_artista=?";
-            
-            PreparedStatement ps = csql.prepareStatement(q);
-            ps.setInt(1, id );
-
-            ResultSet rs = ps.executeQuery();
-
-            if (rs != null) {
-                while (rs.next()) {
-                    Disco d = new Disco();
-                    d.setId(rs.getInt("id"));
-                    d.setNombre(rs.getString("nombre"));
-                    d.setFoto(rs.getString("foto"));
-                    d.setCreador(new Artista(rs.getInt("id_artista"), "", "", "", null));
-                    d.setFecha_produccion(rs.getDate("fecha_pro"));
-                    d.setCanciones(null);
-                    
-                    result.add(d);
-                }
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex);
-            Logger.getLogger(DiscoDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return result;
-    }
     
+    /**
+     * Metodo que devuelve el disco que tiene el id pasado
+     * @param id el id del disco en cuestion
+     * @return el disco con ese id
+     */
     public static Disco selectAllForId(int id) {
         Disco result = null;
 
@@ -245,6 +224,11 @@ public class DiscoDAO extends Disco {
         return result;
     }
     
+    /**
+     * Metodo que devuelve el disco que tiene exactamente el nombre que se pasa
+     * @param Nombre el nombre en cuestion del disco
+     * @return el disco con ese nombre
+     */
     public static Disco selectAllForNombre(String Nombre) {
         Disco result = null;
 
@@ -273,7 +257,49 @@ public class DiscoDAO extends Disco {
 
         return result;
     }
+    
+    /**
+     * Metodo que devuelve los discos que tiene el id de artista pasado
+     * @param id_artista el id del artista en cuestion
+     * @return lista de discos que tienen el id_artista seleccionado
+     */
+    public static List<Disco> selectAll(int id_artista) {
+        List<Disco> result = new ArrayList<>();
 
+        try {
+            java.sql.Connection csql = ConnectionUtil.getConnection();
+            String q = "SELECT * FROM disco WHERE id_artista=?";
+            
+            PreparedStatement ps = csql.prepareStatement(q);
+            ps.setInt(1, id_artista);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs != null) {
+                while (rs.next()) {
+                    Disco d = new Disco();
+                    d.setId(rs.getInt("id"));
+                    d.setNombre(rs.getString("nombre"));
+                    d.setFoto(rs.getString("foto"));
+                    d.setCreador(new Artista(rs.getInt("id_artista"), "", "", "", null));
+                    d.setFecha_produccion(rs.getDate("fecha_pro"));
+                    d.setCanciones(null);
+                    
+                    result.add(d);
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            Logger.getLogger(DiscoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return result;
+    }
+    
+    /**
+     * Borra de la base de datos el disco
+     * @return -1 si no se ha borrado o el id del disco borrado
+     */
     public int remove() {
         int result = -1;
 

@@ -9,6 +9,13 @@ import java.util.logging.Logger;
 public class ConnectionUtil {
     private static java.sql.Connection _conn = null;
     
+    /**
+     * Metodo que conecta a la base de datos, a traves del driver
+     * @param c es un archivo xml que contiene los datos de nuestra base de datos
+     * @return la conexion a la base de datos
+     * @throws ClassNotFoundException las clase "com.mysql.cj.jdbc.Driver" no se encuentra en la ruta de clases
+     * @throws SQLException Falta la base de datos
+     */
     public static java.sql.Connection connect(Connection c) throws ClassNotFoundException, SQLException{
         java.sql.Connection conn = null;
         
@@ -23,6 +30,10 @@ public class ConnectionUtil {
         return conn; 
     }
     
+    /**
+     * Metodo que nos devuelve la conexion a la base de datos
+     * @return la conexion a la base de datos
+     */
     public static java.sql.Connection getConnection(){
         if(_conn == null){
             Connection c = new Connection();
@@ -40,6 +51,9 @@ public class ConnectionUtil {
         return _conn;
     }
     
+    /**
+     * Metodo que cierra la conexion a la base de datos
+     */
     public static void closeConnection(){
         if(_conn!=null){
             try {

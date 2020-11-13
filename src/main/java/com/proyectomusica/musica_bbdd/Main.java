@@ -39,6 +39,8 @@ public class Main {
         }
         */
         AppController.Menu_Lista_Reproduccion(UsuarioDAO.selectAllForID(3));
+        
+        AppControllerCisquito.menu_suscripciones(UsuarioDAO.selectAllForID(3));
         //AppController.ejecutar();
     }
 }

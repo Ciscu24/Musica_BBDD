@@ -86,6 +86,10 @@ public class CancionDAO extends Cancion{
         }
     }
 
+    /**
+     * Metodo que guarda o edita una cancion
+     * @return -1 en caso de que no haga nada o el id de la cancion que hayamos agregado o editado
+     */
     public int save() {
         int result = -1;
 
@@ -123,17 +127,19 @@ public class CancionDAO extends Cancion{
 
         return result;
     }
-
+    
+    /**
+     * Metodo que devuelve todas las canciones de la base de datos
+     * @return todas las canciones
+     */
     public static List<Cancion> selectAll() {
         return selectAll("");
     }
 
     /**
-     * Funcion que selecciona por usuario todos los clientes de la base de datos
-     * que sea por el pattern
-     *
-     * @param pattern Palabra por lo que se filtra el select
-     * @return devuelve una lista de clientes
+     * Metodo que selecciona a todas las canciones que contengan el nombre pasado
+     * @param pattern nombre que contenga la cancion
+     * @return la lista de todas las canciones que contengan el nombre de pattern
      */
     public static List<Cancion> selectAll(String pattern) {
         List<Cancion> result = new ArrayList<>();
@@ -173,6 +179,11 @@ public class CancionDAO extends Cancion{
         return result;
     }
     
+    /**
+     * Metodo que devuelve todas las canciones que tengan el id_disco pasado
+     * @param id_disco el id del disco que contienen las canciones
+     * @return todas la canciones que estan dentro del id_disco pasado
+     */
     public static List<Cancion> selectAll(int id_disco) {
         List<Cancion> result = new ArrayList<>();
 
@@ -205,7 +216,12 @@ public class CancionDAO extends Cancion{
         return result;
     }
     
-        public static Cancion selectAllForId(int id) {
+    /**
+     * Metodo que devuelve la cancion que tiene el id pasado
+     * @param id el id de la cancion en cuestion
+     * @return la cancion con ese id
+     */
+    public static Cancion selectAllForId(int id) {
         Cancion result = null;
 
         try {
@@ -236,6 +252,10 @@ public class CancionDAO extends Cancion{
         return result;
     }
 
+    /**
+     * Borra de la base de datos la cancion
+     * @return -1 si no se ha borrado o el id de la cancion borrada
+     */
     public int remove() {
         int result = -1;
 

@@ -68,6 +68,9 @@ public class Connection {
         return "Connection{" + "host=" + host + ", db=" + db + ", user=" + user + ", password=" + password + '}';
     }
 
+    /**
+     * Metodo que carga un xml
+     */
     public void loadDataXML() {
         //String file = "utils\\connection.xml";
         String file = "utils/connection.xml";
@@ -88,7 +91,7 @@ public class Connection {
                 Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else{
-            System.out.println("Archivo no valido");
+            System.out.println("Falta el archivo connection.xml");
         }
     }
 }
