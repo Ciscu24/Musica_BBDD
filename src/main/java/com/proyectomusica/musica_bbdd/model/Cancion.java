@@ -83,21 +83,33 @@ public class Cancion {
     }
     @Override
     public String toString() {
-        return "Cancion{" + "id=" + id + ", nombre=" + nombre + ", duracion=" + duracion + "}";
+        return "\n------ "+id+" ------\nNombre: "+nombre+"\nDuracion: "+duracion;
     }
     
-    public String toStringWithDisco() {
-        return "Cancion{" + "id=" + id + ", nombre=" + nombre + ", duracion=" + duracion + ", disco_contenedor=" + disco_contenedor + '}';
+    public String toStringWithDisco(){
+        String cadena = "";
+        cadena+=toString();
+        cadena+="\nDisco contenedor: ";
+        cadena+="\n---------------------------------";
+        cadena+=disco_contenedor;
+        cadena+="\n---------------------------------";
+        return cadena;
     }
-
+    
     public String toStringWithListas() {
-        return "Cancion{" + "id=" + id + ", nombre=" + nombre + ", duracion=" + duracion + ", listas=" + listas + '}';
+        String cadena = "";
+        cadena+=toString();
+        if(!listas.isEmpty()){
+            cadena+="\nListas: ";
+            cadena+="\n---------------------------------";
+            for(Lista l: listas){
+                cadena+=l;
+            }
+            cadena+="\n---------------------------------";
+        }else{
+            cadena+="\nListas: No tiene listas";
+        }
+                
+        return cadena;
     }
-    
-    public String toStringAll() {
-        return "Cancion{" + "id=" + id + ", nombre=" + nombre + ", duracion=" + duracion + ", disco_contenedor=" + disco_contenedor + ", listas=" + listas + '}';
-    }
-    
-    
-
 }

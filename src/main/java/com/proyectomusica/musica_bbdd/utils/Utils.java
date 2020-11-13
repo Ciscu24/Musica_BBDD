@@ -54,24 +54,6 @@ public class Utils {
         return resultado;
     }
 
-    public static double devolverDouble(String texto) {
-        double resultado = 0;
-        boolean valid = false;
-        Scanner teclado = new Scanner(System.in);
-        do {
-            try {
-                System.out.print(texto);
-                resultado = teclado.nextDouble();
-                valid = true;
-            } catch (Exception e) {
-                valid = false;
-                System.out.println("\nIntroduce un numero correcto");
-                teclado = new Scanner(System.in);
-            }
-        } while (!valid);
-        return resultado;
-    }
-
     /**
      * Metodo para que tengas que pulsar Enter para continuar
      */

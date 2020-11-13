@@ -77,11 +77,24 @@ public class Artista {
 
     @Override
     public String toString() {
-        return "Artista{" + "id=" + id + ", nombre=" + nombre + ", nacionalidad=" + nacionalidad + ", foto=" + foto + " }";
+        return "\n------ "+id+" ------\nNombre: "+nombre+"\nNacionalidad: "+nacionalidad+"\nFoto: "+foto;
     }
 
     public String toStringWithDisco() {
-        return "Artista{" + "id=" + id + ", nombre=" + nombre + ", nacionalidad=" + nacionalidad + ", foto=" + foto + ", disco=" + disco + '}';
+        String cadena = "";
+        cadena+=toString();
+        if(!disco.isEmpty()){
+            cadena+="\nDiscos: ";
+            cadena+="\n---------------------------------";
+            for(Disco d: disco){
+                cadena+=d;
+            }
+            cadena+="\n---------------------------------";
+        }else{
+            cadena+="\nDiscos: No tiene discos";
+        }
+                
+        return cadena;
     }
 
 }

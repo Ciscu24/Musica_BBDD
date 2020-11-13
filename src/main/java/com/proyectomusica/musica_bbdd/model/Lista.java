@@ -11,7 +11,9 @@ public class Lista {
     protected List<Cancion> canciones;
     protected List<Usuario> usuarios_suscritos;
 
-    public Lista() {}
+    public Lista() {
+        this.id = -1;
+    }
 
     public Lista(int id, String nombre, String descripcion, Usuario creador, List<Cancion> canciones, List<Usuario> usuarios_suscritos) {
         this.id = id;
@@ -92,23 +94,51 @@ public class Lista {
 
     @Override
     public String toString() {
-        return "Lista{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + " }";
+        return "\n------ "+id+" ------\nNombre: "+nombre+"\nDescripcion: "+descripcion;
     }
     
     public String toStringWithUsuario(){
-        return "Lista{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", creador=" + creador + '}';  
+        String cadena = "";
+        cadena+=toString();
+        cadena+="\nCreador: ";
+        cadena+="\n---------------------------------";
+        cadena+=creador;
+        cadena+="\n---------------------------------";
+        return cadena;
     }
     
-    public String toStringWithCanciones(){
-        return "Lista{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", canciones=" + canciones + '}';  
+    public String toStringWithCanciones() {
+        String cadena = "";
+        cadena+=toString();
+        if(!canciones.isEmpty()){
+            cadena+="\nCanciones: ";
+            cadena+="\n---------------------------------";
+            for(Cancion c: canciones){
+                cadena+=c;
+            }
+            cadena+="\n---------------------------------";
+        }else{
+            cadena+="\nCanciones: No tiene canciones";
+        }
+                
+        return cadena;
     }
-
+    
     public String toStringWithUsuarios_Suscritos() {
-        return "Lista{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", usuarios_suscritos=" + usuarios_suscritos + '}';
-    }
-    
-    public String toStringFull() {
-        return "Lista{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", creador=" + creador + ", canciones=" + canciones + ", usuarios_suscritos=" + usuarios_suscritos + '}';
+        String cadena = "";
+        cadena+=toString();
+        if(!usuarios_suscritos.isEmpty()){
+            cadena+="\nUsuarios suscritos: ";
+            cadena+="\n---------------------------------";
+            for(Usuario u: usuarios_suscritos){
+                cadena+=u;
+            }
+            cadena+="\n---------------------------------";
+        }else{
+            cadena+="\nUsuarios suscritos: No tiene usuarios";
+        }
+                
+        return cadena;
     }
 
 }

@@ -95,19 +95,41 @@ public class Usuario {
     
     @Override
     public String toString() {
-        return "Usuario{" + "id=" + id + ", correo=" + correo + ", nombre=" + nombre + ", foto=" + foto + '}';
+        return "\n------ "+id+" ------\nCorreo: "+correo+"\nNombre: "+nombre+"\nFoto: "+foto;
     }
-
+    
     public String toStringWithListas_Creadas() {
-        return "Usuario{" + "id=" + id + ", correo=" + correo + ", nombre=" + nombre + ", foto=" + foto + ", listas_creadas=" + listas_creadas + '}';
+        String cadena = "";
+        cadena+=toString();
+        if(!listas_creadas.isEmpty()){
+            cadena+="\nListas creadas: ";
+            cadena+="\n---------------------------------";
+            for(Lista l: listas_creadas){
+                cadena+=l;
+            }
+            cadena+="\n---------------------------------";
+        }else{
+            cadena+="\nListas creadas: No tiene listas";
+        }
+                
+        return cadena;
     }
     
     public String toStringWithListas_Suscrito() {
-        return "Usuario{" + "id=" + id + ", correo=" + correo + ", nombre=" + nombre + ", foto=" + foto + ", listas_suscrito=" + listas_suscrito + '}';
-    }
-
-    public String toStringAll() {
-        return "Usuario{" + "id=" + id + ", correo=" + correo + ", nombre=" + nombre + ", foto=" + foto + ", listas_creadas=" + listas_creadas + ", listas_suscrito=" + listas_suscrito + '}';
+        String cadena = "";
+        cadena+=toString();
+        if(!listas_suscrito.isEmpty()){
+            cadena+="\nListas suscrito: ";
+            cadena+="\n---------------------------------";
+            for(Lista l: listas_suscrito){
+                cadena+=l;
+            }
+            cadena+="\n---------------------------------";
+        }else{
+            cadena+="\nListas suscrito: No tiene listas";
+        }
+                
+        return cadena;
     }
     
 }

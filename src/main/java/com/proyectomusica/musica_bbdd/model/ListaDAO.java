@@ -239,7 +239,6 @@ public class ListaDAO extends Lista {
                 }
             }
         } catch (SQLException ex) {
-            System.out.println(ex);
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 

@@ -99,22 +99,34 @@ public class Disco {
     
     @Override
     public String toString() {
-        return "Disco{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + " , fecha_produccion=" + fecha_produccion + "}";
+        return "\n------ "+id+" ------\nNombre: "+nombre+"\nFoto: "+foto+"\nFecha de Produccion: "+fecha_produccion;
     }
     
-    public String toStringWithCanciones(){
-        return "Disco{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + ", fecha_produccion=" + fecha_produccion + ", canciones=" + canciones + "}";
+    public String toStringWithCanciones() {
+        String cadena = "";
+        cadena+=toString();
+        if(!canciones.isEmpty()){
+            cadena+="\nCanciones: ";
+            cadena+="\n---------------------------------";
+            for(Cancion c: canciones){
+                cadena+=c;
+            }
+            cadena+="\n---------------------------------";
+        }else{
+            cadena+="\nCanciones: No tiene canciones";
+        }
+                
+        return cadena;
     }
     
-        public String toStringWithCreador(){
-        return "Disco{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + ", artistas=" + creador + ", fecha_produccion=" + fecha_produccion + "}";
+    public String toStringWithCreador(){
+        String cadena = "";
+        cadena+=toString();
+        cadena+="\nCreador: ";
+        cadena+="\n---------------------------------";
+        cadena+=creador;
+        cadena+="\n---------------------------------";
+        return cadena;
     }
-
-   
-    public String toStringAll() {
-        return "Disco{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + ", creador=" + creador + ", fecha_produccion=" + fecha_produccion + ", canciones=" + canciones + '}';
-    }
-    
-        
 
 }

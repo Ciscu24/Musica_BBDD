@@ -120,5 +120,33 @@ public class Lista_CancionDAO {
         
         return result;
     }
+    
+    public static void guardarCancionEnLista(int id_lista, int id_cancion){        
+        try {
+            java.sql.Connection csql = ConnectionUtil.getConnection();
+            
+            String q = "INSERT INTO lista_cancion (id_lista, id_cancion) VALUES (?,?)";
+            PreparedStatement ps = csql.prepareStatement(q);
+            ps.setInt(1, id_lista);
+            ps.setInt(2, id_cancion);
+            ps.executeUpdate();
+         
+        }catch (SQLException ex) {
+            Logger.getLogger(ListaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void remove(int id_lista, int id_cancion){   
+        try{
+            java.sql.Connection csql = ConnectionUtil.getConnection();
+            String q = "DELETE FROM lista_cancion WHERE id_lista = ? and id_cancion = ?";
+            PreparedStatement ps = csql.prepareStatement(q);
+            ps.setInt(1, id_lista);
+            ps.setInt(2, id_cancion);
+            ps.executeUpdate();
+        }catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 }
