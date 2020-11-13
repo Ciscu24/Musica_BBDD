@@ -30,19 +30,6 @@ public class Artista {
         this.disco = disco;
     }
 
-    public List<Disco> getDisco() {
-
-        if (disco == null) {
-            disco = DiscoDAO.selectAll(id);
-        }
-
-        return disco;
-    }
-
-    public void setDisco(List<Disco> disco) {
-        this.disco = disco;
-    }
-
     public int getId() {
         return id;
     }
@@ -73,6 +60,19 @@ public class Artista {
 
     public void setFoto(String foto) {
         this.foto = foto;
+    }
+
+    public List<Disco> getDisco() {
+
+        if (disco == null) {
+            disco = DiscoDAO.selectAll(id);
+        }
+
+        return disco;
+    }
+
+    public void setDisco(List<Disco> disco) {
+        this.disco = disco;
     }
 
     @Override

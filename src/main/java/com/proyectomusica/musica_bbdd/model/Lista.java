@@ -22,6 +22,15 @@ public class Lista {
         this.usuarios_suscritos = usuarios_suscritos;
     }
 
+    public Lista(String nombre, String descripcion, Usuario creador, List<Cancion> canciones, List<Usuario> usuarios_suscritos) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.creador = creador;
+        this.canciones = canciones;
+        this.usuarios_suscritos = usuarios_suscritos;
+    }
+     
+
     public int getId() {
         return id;
     }

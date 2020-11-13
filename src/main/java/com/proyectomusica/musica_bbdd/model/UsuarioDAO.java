@@ -217,6 +217,36 @@ public class UsuarioDAO extends Usuario {
         return result;
     }
     
+        public static Usuario selectAllForNombre(String nombre){
+        Usuario result = new Usuario();
+        
+        try {
+            java.sql.Connection csql = ConnectionUtil.getConnection();
+            String q = "SELECT * FROM usuario WHERE nombre = ?";
+            
+            PreparedStatement ps = csql.prepareStatement(q);
+            
+            ps.setString(1,nombre);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs != null){
+                rs.next();
+                result.id= rs.getInt("id");
+                result.correo = rs.getString("correo");
+                result.nombre = rs.getString("nombre");
+                result.foto = rs.getString("foto");
+                result.listas_creadas = null;
+                result.listas_suscrito = null;
+            }
+        }catch (SQLException ex) {
+            System.out.println(ex);
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result;
+    }
+    
     public int remove(){
         int result = -1;
         

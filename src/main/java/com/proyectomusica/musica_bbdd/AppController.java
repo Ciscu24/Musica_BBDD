@@ -23,13 +23,12 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class AppController {
-    
+
     public static void ejecutar() {
         principal();
     }
 
     public static void principal() {
-
         int numero;
 
         do {
@@ -51,7 +50,7 @@ public class AppController {
     static void opciones_principal(int numero) {
         switch (numero) {
             case 1: //Caso 1 para 
-                Iniciar_sesion();
+                Iniciar_sesion(1);
                 break;
 
             case 2: //Caso 2 para 
@@ -59,13 +58,13 @@ public class AppController {
                 break;
 
             case 3: //Caso 3 para 
-                Iniciar_sesion();
+                Iniciar_sesion(3);
                 break;
 
         }
     }
 
-    public static void Iniciar_sesion() {
+    public static void Iniciar_sesion(int opcion) {
 
         boolean result = false;
         //System.out.println(UsuarioDAO.selectAll());
@@ -76,28 +75,28 @@ public class AppController {
         String nombre = devolverString("Introduce tu nombre: ");
         String correo = devolverString("Introduce tu correo: ");
 
-        
         if (nombre.equals("") || correo.equals("")) {
             System.out.println("Usted no ha introducido nada");
             pulsarEnter();
-        }else{
+        } else {
             List<Usuario> Buscar = UsuarioDAO.selectAll(nombre);
-            
+
             boolean bandera = false;
             for (int i = 0; i < Buscar.size() && !bandera; i++) {
                 if (Buscar.get(i).getNombre().equals(nombre) && Buscar.get(i).getCorreo().equals(correo)) {
                     bandera = true;
                 }
             }
-            if(bandera == true){
+            if (nombre.equals("Admin") && bandera == true && opcion == 3) {
+                lista_sesionAdmin(nombre);
+            } else if (bandera == true && !nombre.equals("Admin") && opcion == 1) {
                 lista_sesion(nombre);
-            }else{
+            } else {
                 System.out.println("Ususario o correo no validos");
                 pulsarEnter();
             }
+
         }
-        
-        
 
     }
 
@@ -209,65 +208,158 @@ public class AppController {
             }
         } while (opcion != 0);
     }
-    
+
+    public static void lista_sesionAdmin(String usuario) {
+        int opcion = 0;
+        do {
+            System.out.println("\n+---------------------------+");
+            System.out.println("|    Menu administrador     |");
+            System.out.println("+---------------------------+");
+            System.out.println("| 1) Artistas               |");
+            System.out.println("| 2) Discos                 |");
+            System.out.println("| 3) Cancion                |");
+            System.out.println("| 0) Salir                  |");
+            System.out.println("+---------------------------+");
+
+            opcion = devolverInt("Introduce una opcion: ");
+
+            switch (opcion) {
+                case 1:
+                    Menu_Artistas();
+                    break;
+
+                case 2:
+                    Menu_Discos();
+                    break;
+
+                case 3:
+                    Menu_Canciones();
+                    break;
+            }
+        } while (opcion != 0);
+
+    }
+
     public static void lista_sesion(String usuario) {
-        if (usuario.equals("Admin")) {
-            int opcion = 0;
-            do {
-                System.out.println("\n+---------------------------+");
-                System.out.println("|    Menu administrador     |");
-                System.out.println("+---------------------------+");
-                System.out.println("| 1) Artistas               |");
-                System.out.println("| 2) Discos                 |");
-                System.out.println("| 3) Cancion                |");
-                System.out.println("| 0) Salir                  |");
-                System.out.println("+---------------------------+");
+        int opcion = 0;
+        do {
+            System.out.println("\n+----------------------------+");
+            System.out.println("|    Menu Usuario            |");
+            System.out.println("+----------------------------+");
+            System.out.println("| 1) Listar Discos           |");
+            System.out.println("| 2) Lista de Reproduccion   |");
+            System.out.println("| 3) Suscripciones           |");
+            System.out.println("| 0) Salir                   |");
+            System.out.println("+----------------------------+");
 
-                opcion = devolverInt("Introduce una opcion: ");
+            opcion = devolverInt("Introduce una opcion: ");
 
-                switch (opcion) {
-                    case 1:
-                        Menu_Artistas();
-                        break;
+            switch (opcion) {
+                case 1:
+                    lista_discos();
+                    break;
 
-                    case 2:
-                        Menu_Discos();
-                        break;
+                case 2:
+                    break;
 
-                    case 3:
-                        Menu_Canciones();
-                        break;
-                }
-            } while (opcion != 0);
-        }else{
-            int opcion = 0;
-            do {
-                System.out.println("\n+----------------------------+");
-                System.out.println("|    Menu Usuario            |");
-                System.out.println("+----------------------------+");
-                System.out.println("| 1) Listar Discos           |");
-                System.out.println("| 2) Lista de Reproduccion   |");
-                System.out.println("| 3) Suscripciones           |");
-                System.out.println("| 0) Salir                   |");
-                System.out.println("+----------------------------+");
+                case 3:
 
-                opcion = devolverInt("Introduce una opcion: ");
+                    break;
+            }
+        } while (opcion != 0);
+    }
 
-                switch (opcion) {
-                    case 1:
-                        lista_discos();
-                        break;
+    public static void Menu_Lista_Reproduccion(Usuario usuario) {
+        int opcion = 0;
+        do {
+            System.out.println("\n+------------------------------+");
+            System.out.println("|    Menu Lista reproduccion   |");
+            System.out.println("+------------------------------+");
+            System.out.println("| 1) Crear Lista               |");
+            System.out.println("| 2) Editar Lista              |");
+            System.out.println("| 3) Eliminar Lista            |");
+            System.out.println("| 4) Añadir canción            |");
+            System.out.println("| 0) Salir                     |");
+            System.out.println("+------------------------------+");
 
-                    case 2:
-                        break;
+            opcion = devolverInt("Introduce una opcion: ");
+            switch (opcion) {
+                case 1:
+                    String nombre = devolverString("Introduzca el nombre de la Lista: ");
+                    String descripcion = devolverString("Introduzca una descripcion para la lista: ");
+                    Lista l = new Lista(nombre, descripcion, usuario, null, null);
+                    ListaDAO lDAO = new ListaDAO(l);
+                    if (lDAO.save() != -1) {
+                        System.out.println("La lista de reproduccion se ha creado con exito");
+                    } else {
+                        System.out.println("No se ha podido crear la lista de reproduccion");
+                    }
+                    break;
 
-                    case 3:
+                case 2:
+                    List<Lista> listas = ListaDAO.selectAll(usuario.getId());
+                    for (Lista list : listas) {
+                        System.out.println(list);
+                    }
 
-                        break;
+                    int idLista = devolverInt("Introduzca el id de la lista que desea cambiar: ");
+                    Lista lst = ListaDAO.selectAllForId(idLista);
 
-                }
-            } while (opcion != 0);
-        }
+                    if (lst.getId() != -1) {
+                        int opcion1 = 0;
+                        do {
+                            System.out.println("\n+--------------------------------+");
+                            System.out.println("|   Lista: " + lst.getId() + "                   |");
+                            System.out.println("+--------------------------------+");
+                            System.out.println(" 1) Editar nombre: " + lst.getNombre());
+                            System.out.println(" 2) Editar descripcion: " + lst.getDescripcion());
+                            System.out.println(" 0) Guardar Lista");
+                            opcion1 = devolverInt("Introduce una opcion: ");
+                            switch (opcion1) {
+                                case 1:
+                                    String nombreCambio = devolverString("Introduce el nuevo nombre: ");
+                                    lst.setNombre(nombreCambio);
+                                    break;
+                                case 2:
+                                    String descripcionCambio = devolverString("Introduce la nueva descripcion: ");
+                                    lst.setDescripcion(descripcionCambio);
+                                    break;
+                                case 0:
+                                    ListaDAO listaDAO = new ListaDAO(lst);
+                                    if (listaDAO.save() != -1) {
+                                        System.out.println("La lista fue guardado con exito");
+                                    } else {
+                                        System.out.println("La lista no se ha guardado");
+                                    }
+                                    break;
+                            }
+                        } while (opcion1 != 0);
+                    } else {
+                        System.out.println("Usted ha introducido un numero incorrecto");
+                        pulsarEnter();
+                    }
+
+                    break;
+
+                case 3:
+                    List<Lista> listass = ListaDAO.selectAll(usuario.getId());
+                    for (Lista listaa : listass) {
+                        System.out.println(listaa);
+                    }
+
+                    int idListaEliminado = devolverInt("Introduzca el id de la lista que desea eliminar: ");
+
+                    ListaDAO listaElminado = new ListaDAO(ListaDAO.selectAllForId(idListaEliminado));
+
+                    if (listaElminado.getId() != -1 && listaElminado.remove() != -1) {
+                        System.out.println("La lista se ha sido borrado con exito");
+                    } else {
+                        System.out.println("La lista no se ha borrado");
+                    }
+
+                    break;
+            }
+        } while (opcion != 0);
     }
 
     public static void Menu_Artistas() {
@@ -283,7 +375,6 @@ public class AppController {
             System.out.println("+--------------------+");
 
             opcion = devolverInt("Introduce una opcion: ");
-
             switch (opcion) {
                 case 1:
                     String nombre = devolverString("Introduzca el nombre del artista: ");
@@ -510,13 +601,13 @@ public class AppController {
                 case 1:
                     String nombre = devolverString("Introduzca el nombre de la cancion: ");
                     int duracion = devolverInt("Introduzca la duracion de la cancion: ");
-                    int id_disco = devolverInt("Introduzca el id del disco: ");
-                    Disco cancion_disco = DiscoDAO.selectAllForId(id_disco);
+                    String nombre_disco = devolverString("Introduzca el nombre del disco: ");
+                    Disco cancion_disco = DiscoDAO.selectAllForNombre(nombre_disco);
                     if (cancion_disco != null) {
                         Cancion c = new Cancion(nombre, duracion, cancion_disco);
                         CancionDAO cDAO = new CancionDAO(c);
                         if (cDAO.save() != -1) {
-                            System.out.println("El artista se ha creado con exito");
+                            System.out.println("La cancion se ha creado con exito");
                         } else {
                             System.out.println("No se ha podido crear el artista");
                         }
@@ -580,7 +671,7 @@ public class AppController {
                     break;
 
                 case 3:
-                    List<Cancion> cancionEliminar=CancionDAO.selectAll();
+                    List<Cancion> cancionEliminar = CancionDAO.selectAll();
                     for (Cancion cancionElimina : cancionEliminar) {
                         System.out.println(cancionElimina);
                     }

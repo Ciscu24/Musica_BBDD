@@ -38,7 +38,7 @@ public class Main {
             System.out.println(d.toStringWithCanciones());
         }
         */
-        
+        AppController.Menu_Lista_Reproduccion(UsuarioDAO.selectAllForID(3));
         //AppController.ejecutar();
     }
 }
