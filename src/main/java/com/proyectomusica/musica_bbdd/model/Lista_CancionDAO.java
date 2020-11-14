@@ -48,6 +48,13 @@ public class Lista_CancionDAO {
         return result;
     }
     
+     /**
+     * Funcion que devuelve todas las lista que tiene el id_cancion
+     * 
+     *
+     * @param id_cancion id por lo que se filtra el select
+     * @return devuelve una lista de lista de reproduccion
+     */
     public static List<Lista> selectAllListas(int id_cancion) {
         List<Lista> result = new ArrayList<>();
 
@@ -78,11 +85,23 @@ public class Lista_CancionDAO {
         }
         return result;
     }
+     /**
+     * Funcion que devuelve la listas con canciones
+     *
+     * @param id_lista Palabra por lo que se filtra el select
+     * @return devuelve una lista de reproduccion con canciones
+     */
     
     public static List<Lista> selectAllLista(){
         return selectAllLista("");
     }
     
+      /**
+     * Funcion que selecciona por nombre la lista de reproducción
+     *
+     * @param pattern Palabra por lo que se filtra el select
+     * @return devuelve una lista de lsita de reproducción
+     */
     public static List<Lista> selectAllLista(String pattern){
         List<Lista> result = new ArrayList<>();
         
@@ -121,6 +140,12 @@ public class Lista_CancionDAO {
         return result;
     }
     
+        /**
+     * Funcion que crea la relacion entre lista y canción,es decir,
+     * la cancion se guarda en la lista
+     *
+     * @param id_lista,id_cancion id para guardar en una lista
+     */
     public static void guardarCancionEnLista(int id_lista, int id_cancion){        
         try {
             java.sql.Connection csql = ConnectionUtil.getConnection();
@@ -136,6 +161,11 @@ public class Lista_CancionDAO {
         }
     }
     
+     /**
+     * Borra de la base de datos las lista de reproduccion
+     *
+     * @return -1 si no se ha borrado o el id de la lista de reproduccion borrada
+     */
     public static void remove(int id_lista, int id_cancion){   
         try{
             java.sql.Connection csql = ConnectionUtil.getConnection();

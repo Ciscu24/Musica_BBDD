@@ -83,7 +83,7 @@ public class Cancion {
     }
     @Override
     public String toString() {
-        return "\n------ "+id+" ------\nNombre: "+nombre+"\nDuracion: "+duracion;
+        return "\n------ ID: "+id+" ------\nNombre: "+nombre+"\nDuracion: "+duracion;
     }
     
     public String toStringWithDisco(){

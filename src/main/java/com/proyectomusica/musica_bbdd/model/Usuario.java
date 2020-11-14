@@ -95,7 +95,7 @@ public class Usuario {
     
     @Override
     public String toString() {
-        return "\n------ "+id+" ------\nCorreo: "+correo+"\nNombre: "+nombre+"\nFoto: "+foto;
+        return "\n------ ID: "+id+" ------\nCorreo: "+correo+"\nNombre: "+nombre+"\nFoto: "+foto;
     }
     
     public String toStringWithListas_Creadas() {

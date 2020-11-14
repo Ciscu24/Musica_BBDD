@@ -10,6 +10,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SuscripcionDAO {
+    
+     /**
+     * Funcion que selecciona por id del usuario la subcripciones de la base de datos
+     *
+     * @param id_usuario id por lo que se filtra el select
+     * @return devuelve una lista de subcripciones del usuario
+     */
     public static List<Lista> selectAllListas(int id_usuario) {
         List<Lista> result = new ArrayList<>();
 
@@ -41,6 +48,12 @@ public class SuscripcionDAO {
         return result;
     }
     
+     /**
+     * Funcion que selecciona todos los usuarios que tiene una lista
+     *
+     * @param id_lista id por lo que se filtra el select
+     * @return devuelve una lista de usuario
+     */
     public static List<Usuario> selectAllUsuario(int id_lista) {
         List<Usuario> result = new ArrayList<>();
 
@@ -72,7 +85,13 @@ public class SuscripcionDAO {
         }
         return result;
     }
- 
+    
+    
+     /**
+     * Funcion que guarda la subcripcion en la base de datos
+     *
+     * @param id_usuario,id_lista id por lo que se filtra el select
+     */
     public static void guardarSuscripcion(int id_usuario, int id_lista){        
         try {
             java.sql.Connection csql = ConnectionUtil.getConnection();
@@ -87,6 +106,11 @@ public class SuscripcionDAO {
             Logger.getLogger(ListaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+     /**
+     * Borra de la base de datos la subcripcion de un usuario
+     *
+     * @return -1 si no se ha borrado o el id de la lista de reproduccion borrada
+     */
     
     public static void remove(int id_usuario, int id_lista){   
         try{

@@ -94,7 +94,7 @@ public class Lista {
 
     @Override
     public String toString() {
-        return "\n------ "+id+" ------\nNombre: "+nombre+"\nDescripcion: "+descripcion;
+        return "\n------ ID: "+id+" ------\nNombre: "+nombre+"\nDescripcion: "+descripcion;
     }
     
     public String toStringWithUsuario(){

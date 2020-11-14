@@ -99,7 +99,7 @@ public class Disco {
     
     @Override
     public String toString() {
-        return "\n------ "+id+" ------\nNombre: "+nombre+"\nFoto: "+foto+"\nFecha de Produccion: "+fecha_produccion;
+        return "\n------ ID: "+id+" ------\nNombre: "+nombre+"\nFoto: "+foto+"\nFecha de Produccion: "+fecha_produccion;
     }
     
     public String toStringWithCanciones() {

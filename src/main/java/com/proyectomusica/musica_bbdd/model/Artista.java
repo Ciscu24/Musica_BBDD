@@ -77,7 +77,7 @@ public class Artista {
 
     @Override
     public String toString() {
-        return "\n------ "+id+" ------\nNombre: "+nombre+"\nNacionalidad: "+nacionalidad+"\nFoto: "+foto;
+        return "\n------ ID: "+id+" ------\nNombre: "+nombre+"\nNacionalidad: "+nacionalidad+"\nFoto: "+foto;
     }
 
     public String toStringWithDisco() {

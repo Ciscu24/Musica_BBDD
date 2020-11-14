@@ -13,7 +13,7 @@ import java.sql.Date;
 import java.util.List;
 
 public class AppControllerAdmin {
-    
+
     public static void lista_sesionAdmin() {
         int opcion = 0;
         do {
@@ -44,7 +44,7 @@ public class AppControllerAdmin {
         } while (opcion != 0);
 
     }
-    
+
     public static void Menu_Artistas() {
         int opcion = 0;
         do {
@@ -54,6 +54,7 @@ public class AppControllerAdmin {
             System.out.println("| 1) Crear artista   |");
             System.out.println("| 2) Editar artista  |");
             System.out.println("| 3) Borrar artista  |");
+            System.out.println("| 4) Listar artistas |");
             System.out.println("| 0) Salir           |");
             System.out.println("+--------------------+");
 
@@ -138,6 +139,13 @@ public class AppControllerAdmin {
                         System.out.println("El artista no se ha borrado");
                     }
 
+                    break;
+
+                case 4:
+                    List<Artista> AllArtistas = ArtistaDAO.selectAll();
+                    for (Artista as : AllArtistas) {
+                        System.out.println(as);
+                    }
                     break;
             }
         } while (opcion != 0);

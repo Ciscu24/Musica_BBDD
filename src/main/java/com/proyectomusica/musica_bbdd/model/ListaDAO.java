@@ -93,6 +93,12 @@ public class ListaDAO extends Lista {
         }
     }
 
+    /**
+     * Metodo que guarda una lista en la base de datos
+     *
+     * @return -1 en caso de que no haga nada o el id de la lista que hayamos
+     * agregado o editado
+     */
     public int save() {
         int result = -1;
 
@@ -131,6 +137,11 @@ public class ListaDAO extends Lista {
         return result;
     }
 
+    /**
+     * Metodo que Lista todas las lista de la base de datos
+     *
+     * @return Todas las listas
+     */
     public static List<Lista> selectAll() {
         return selectAll("");
     }
@@ -181,6 +192,13 @@ public class ListaDAO extends Lista {
         return result;
     }
 
+    /**
+     * Funcion que selecciona por id_usuario las lista de la base de datos
+     *
+     *
+     * @param id_usuario ID del usuario por lo que se filtra el select
+     * @return devuelve una lista de Lista de reproduccion
+     */
     public static List<Lista> selectAll(int id_usuario) {
         List<Lista> result = new ArrayList<>();
 
@@ -214,6 +232,14 @@ public class ListaDAO extends Lista {
         return result;
     }
 
+    /**
+     * Funcion que selecciona por id todos las listas de reproduccion de la base
+     * de datos
+     *
+     *
+     * @param id id por lo que se filtra el select
+     * @return devuelve una lista de las listas de reproduccion
+     */
     public static Lista selectAllForId(int id) {
         Lista result = new Lista();
 
@@ -245,6 +271,11 @@ public class ListaDAO extends Lista {
         return result;
     }
 
+    /**
+     * Borra de la base de datos las lista de reproduccion
+     *
+     * @return -1 si no se ha borrado o el id de la lista de reproduccion borrada
+     */
     public int remove() {
         int result = -1;
 
